@@ -1,7 +1,7 @@
 import streamlit as st
 
-# import sys
-# sys.path.append('/Users/elie/repos/streamlit_demo')
+import sys
+sys.path.append('streamlit_demo')
 
 from utils.load_css import local_css
 from datamodel.customer_profile import CustomerProfile
