@@ -1,0 +1,42 @@
+.bold {
+    padding-left: 1rem;
+    font-weight: 700;
+}
+
+.highlight_red{
+    border-radius: 0.4rem;
+    background-color: lightcoral;
+    color: white;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.highlight_green{
+    border-radius: 0.4rem;
+    background-color: green;
+    color: white;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.highlight_blue{
+    border-radius: 0.4rem;
+    background-color: lightblue;
+    color: white;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.red {
+    color: lightcoral;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: lightblue;
+}
+
+
