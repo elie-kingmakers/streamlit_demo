@@ -13,7 +13,7 @@ class CustomersData(BaseModel):
         return self.load_data_pandas()
 
     def get_customer_data(self, df, userId):
-        customerData = df.filter(df['UserId'] == userId)
+        customerData = df.loc[df['UserId'] == userId]
         return customerData
 
 

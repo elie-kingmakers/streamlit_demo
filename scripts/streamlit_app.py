@@ -1,15 +1,15 @@
 import streamlit as st
 
-import sys
-sys.path.append('/Users/elie/repos/streamlit_demo')
+# import sys
+# sys.path.append('/Users/elie/repos/streamlit_demo')
 
-from streamlit_demo.utils.load_css import local_css
-from streamlit_demo.datamodel.customer_profile import CustomerProfile
-from streamlit_demo.store.customers_data import CustomersData
+from utils.load_css import local_css
+from datamodel.customer_profile import CustomerProfile
+from store.customers_data import CustomersData
 
 #***********************************************************************************************************************
 #***********************************************************************************************************************
-local_css('customer_profiling/style.css')
+local_css('style.css')
 
 #***********************************************************************************************************************
 #***********************************************************************************************************************
@@ -27,7 +27,6 @@ def load_customers_data_to_streamlit():
     return dataPandas
 
 dataLoadingState = st.text('Loading customers data...')
-dfCustomers = customersData.load_data()
 dfCustomersPandas = load_customers_data_to_streamlit()
 dataLoadingState.text('Loading customers data... DONE!')
 
@@ -47,7 +46,7 @@ getProfileButton = form.form_submit_button(label='Get Profile')
 if getProfileButton:
     dataLoadingState = st.text('Loading customer profile...')
 
-    customerInfo = customersData.get_customer_data(dfCustomers, customerId).collect()[0]
+    customerInfo = customersData.get_customer_data(dfCustomersPandas, int(customerId))
 
     customerProfile = CustomerProfile(
         userId=customerInfo['UserId'],
@@ -97,8 +96,7 @@ if getProfileButton:
 
 
 
-# 301963
-# 306848
+# 301961
 
 
 
