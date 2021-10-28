@@ -1,11 +1,8 @@
 import streamlit as st
 
-import sys
-sys.path.append('streamlit_demo')
-
-from utils.load_css import local_css
-from datamodel.customer_profile import CustomerProfile
-from store.customers_data import CustomersData
+from load_css import local_css
+from customer_profile import CustomerProfile
+from customers_data import CustomersData
 
 #***********************************************************************************************************************
 #***********************************************************************************************************************
