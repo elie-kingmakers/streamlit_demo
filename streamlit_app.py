@@ -12,23 +12,24 @@ local_css('style.css')
 #***********************************************************************************************************************
 st.title('Customer Profiling')
 
-customersData = CustomersData()
-
 #***********************************************************************************************************************
 #***********************************************************************************************************************
 st.header('Raw Data')
 
+dataLoadingState = st.text('Loading customers data...')
+
+dfCustomers = CustomersData.load_data()
+
 @st.cache
 def load_customers_data_to_streamlit():
-    dataPandas = customersData.load_data_pandas()
-    return dataPandas
+    return dfCustomers
 
-dataLoadingState = st.text('Loading customers data...')
-dfCustomersPandas = load_customers_data_to_streamlit()
+dfCustomersToShow = load_customers_data_to_streamlit()
+
 dataLoadingState.text('Loading customers data... DONE!')
 
 if st.checkbox('Show Raw Data'):
-    st.write(dfCustomersPandas)
+    st.write(dfCustomersToShow)
 
 #***********************************************************************************************************************
 #***********************************************************************************************************************
@@ -43,7 +44,7 @@ getProfileButton = form.form_submit_button(label='Get Profile')
 if getProfileButton:
     dataLoadingState = st.text('Loading customer profile...')
 
-    customerInfo = customersData.get_customer_data(dfCustomersPandas, int(customerId))
+    customerInfo = CustomersData.get_customer_data(dfCustomers, int(customerId))
 
     customerProfile = CustomerProfile(
         userId=customerInfo['UserId'],

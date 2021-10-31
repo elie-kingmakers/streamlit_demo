@@ -1,18 +1,19 @@
 import pandas
-from pydantic import BaseModel, validator
+
+from pydantic import BaseModel
+from typing import ClassVar
 
 class CustomersData(BaseModel):
 
-    dataPath: str = 'customer_data_sample.csv'
+    dataPath: ClassVar[str] = 'customer_data_sample.csv'
 
-    def load_data_pandas(self):
-        data = pandas.read_csv(self.dataPath)
+    @staticmethod
+    def load_data():
+        data = pandas.read_csv(CustomersData.dataPath)
         return data
 
-    def load_data(self):
-        return self.load_data_pandas()
-
-    def get_customer_data(self, df, userId):
+    @staticmethod
+    def get_customer_data(df, userId):
         customerData = df.loc[df['UserId'] == userId]
         return customerData
 
