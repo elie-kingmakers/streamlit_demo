@@ -3,7 +3,6 @@ import streamlit as st
 
 from databricks_api import DatabricksAPI
 import pyspark.sql
-from pyspark.dbutils import DBUtils
 # import requests
 # import json
 
@@ -13,7 +12,6 @@ db = DatabricksAPI(
 )
 
 spark = pyspark.sql.SparkSession.builder.getOrCreate()
-dbutils = DBUtils(spark)
 
 #***********************************************************************************************************************
 #***********************************************************************************************************************
