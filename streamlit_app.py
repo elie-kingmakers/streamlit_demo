@@ -1,9 +1,9 @@
 
 import streamlit as st
-# import io
-# import pandas as pd
-
+import io
+import pandas as pd
 from databricks_api import DatabricksAPI
+import base64
 
 db = DatabricksAPI(
     host="adb-2820452106200483.3.azuredatabricks.net",
@@ -15,11 +15,22 @@ db = DatabricksAPI(
 #***********************************************************************************************************************
 st.title('Customer Profiling')
 
-pq_bytes = db.dbfs.read('dbfs:/mnt/datascience/customer_profiling/gold/customers')
 
-st.write(pq_bytes)
-# pq_file = io.BytesIO(pq_bytes)
-# df = pd.read_parquet(pq_file)
+
+parquetDict = db.dbfs.read("dbfs:/mnt/datascience/customer_profiling/gold/customers/part-00000-2c0cfbc6-589c-4447-b481-3093d0b163cb-c000.snappy.parquet")
+
+
+
+
+parquetStringEncoded = parquetDict["data"]
+
+parquetBytesDecoded = base64.b64decode(parquetStringEncoded)
+
+parquetFile = io.BytesIO(parquetBytesDecoded)
+
+df = pd.read_parquet(parquetFile)
+df
+
 
 
 
