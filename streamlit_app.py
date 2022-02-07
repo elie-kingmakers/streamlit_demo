@@ -1,27 +1,25 @@
 
 import streamlit as st
+# import io
+# import pandas as pd
 
 from databricks_api import DatabricksAPI
-import pyspark.sql
-# import requests
-# import json
 
 db = DatabricksAPI(
     host="adb-2820452106200483.3.azuredatabricks.net",
     token="dapi0f9b9050d21ecca66a72fe2b1155ad5e-2"
 )
 
-spark = pyspark.sql.SparkSession.builder.getOrCreate()
 
 #***********************************************************************************************************************
 #***********************************************************************************************************************
 st.title('Customer Profiling')
 
-df = spark.table('db_customerprofiling.customers_gold')
+pq_bytes = db.dbfs.read('dbfs:/mnt/datascience/customer_profiling/gold/customers')
 
-dfTable = df.limit(10).toPandas()
-
-st.write(dfTable)
+st.write(pq_bytes)
+# pq_file = io.BytesIO(pq_bytes)
+# df = pd.read_parquet(pq_file)
 
 
 
