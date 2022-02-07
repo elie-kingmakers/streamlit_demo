@@ -15,7 +15,7 @@ db = DatabricksAPI(
 st.title('Customer Profiling')
 
 
-st.write(db.dbfs.list('dbfs:/eliedatabricks-api'))
+st.write(db.dbfs.list('dbfs:/elie'))
 
 
 # spark = pyspark.sql.SparkSession.builder.getOrCreate()
