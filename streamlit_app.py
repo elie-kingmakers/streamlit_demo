@@ -48,28 +48,27 @@ def read_large_parquet_file_using_dbfs_api(filePathDbfs: str) -> pd.DataFrame:
     return df
 
 
-files = db.dbfs.list('dbfs:/mnt/datascience/customer_profiling/gold/customers_coalesced')['files']
+def read_coalesced_parquet_file(folderPathDbfs: str) -> pd.DataFrame:
+    files = db.dbfs.list(folderPathDbfs)['files']
 
-numberOfParquetFiles = len([file for file in files if str(file['path']).endswith('.parquet')])
+    numberOfParquetFiles = len([file for file in files if str(file['path']).endswith('.parquet')])
 
-if numberOfParquetFiles != 1:
-    print("Error: Number of parquet files = {}. Coalesce these files to get only 1 parquet file.".format(numberOfParquetFiles))
+    if numberOfParquetFiles != 1:
+        raise FileExistsError("Error: Number of parquet files = {}. Coalesce these files to get only 1 parquet file.".format(numberOfParquetFiles))
 
-df = pd.DataFrame()
+    for file in files:
+        filePath: str = file['path']
 
-for file in files:
-    filePath: str = file['path']
-
-    if filePath.endswith('.parquet'):
-        with st.spinner('Loading Customers Table...'):
+        if filePath.endswith('.parquet'):
             df = read_large_parquet_file_using_dbfs_api(filePathDbfs=filePath)
-        st.success('Customers Table Loaded!')
-
-st.write(df)
+            return df
 
 
+with st.spinner("Loading Customers Table..."):
+    dfCustomers = read_coalesced_parquet_file('dbfs:/mnt/datascience/customer_profiling/gold/customers_coalesced')
+st.success("Customers Table Loaded Successfully!")
 
-
+st.write(dfCustomers)
 
 
 
