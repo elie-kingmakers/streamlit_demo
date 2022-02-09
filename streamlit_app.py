@@ -7,8 +7,8 @@ from tqdm import tqdm
 
 
 db = DatabricksAPI(
-    host="adb-2820452106200483.3.azuredatabricks.net",
-    token="dapi0f9b9050d21ecca66a72fe2b1155ad5e-2"
+    host=st.secrets["DATABRICKS_HOST"],
+    token=st.secrets["DATABRICKS_TOKEN"]
 )
 
 
