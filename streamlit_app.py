@@ -65,10 +65,29 @@ def read_coalesced_parquet_file(folderPathDbfs: str) -> pd.DataFrame:
 
 
 with st.spinner("Loading Customers Table..."):
-    dfCustomers = read_coalesced_parquet_file('dbfs:/mnt/datascience/customer_profiling/gold/customers_coalesced')
-st.success("Customers Table Loaded Successfully!")
+    @st.cache
+    def load_customers_table():
+        return read_coalesced_parquet_file('dbfs:/mnt/datascience/customer_profiling/gold/customers_coalesced')
 
-st.write(dfCustomers)
+    dfCustomers = load_customers_table()
+    st.write(dfCustomers)
+
+st.markdown("""---""")
+
+st.header("Customer Profile")
+
+form = st.form(key='customer_profile')
+
+userId = form.text_input(label='Enter User ID')
+getProfileButton = form.form_submit_button(label='Get Profile')
+
+if getProfileButton:
+
+    dfCustomer = dfCustomers[dfCustomers['UserId'] == int(userId)]
+    st.write(dfCustomer)
+
+
+
 
 
 
