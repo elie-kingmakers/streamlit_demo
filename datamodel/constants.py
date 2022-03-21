@@ -1,0 +1,3 @@
+BLANK_SPACE = "&#8203;"
+
+DEFAULT_USER_ID = "0"
