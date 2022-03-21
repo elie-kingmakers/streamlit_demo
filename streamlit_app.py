@@ -24,7 +24,7 @@ from utils.show_data import show_data
 st.set_page_config(page_title="Customer Profile", layout="wide")
 
 # need to specify 'customer_profiling/' for streamlit to find it
-local_css_file("customer_profiling/style.css")
+local_css_file("style.css")
 
 # manage query parameters
 queryParams = manage_query_params()
