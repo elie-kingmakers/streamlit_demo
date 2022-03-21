@@ -1,6 +1,6 @@
 import streamlit as st
 from enum import Enum
-from customer_profiling.datamodel.constants import DEFAULT_USER_ID
+from datamodel.constants import DEFAULT_USER_ID
 
 
 class QueryParams(str, Enum):

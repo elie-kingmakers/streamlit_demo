@@ -7,14 +7,14 @@ import streamlit as st
 # from core.utils.histogram import get_histogram
 # from core.utils.filestore import get_filestore_file_url
 # from core.store.databricks_api_engine import DatabricksApiEngine
-from customer_profiling.datamodel.customer_profile import CustomerProfile
-from customer_profiling.datamodel.constants import DEFAULT_USER_ID
-from customer_profiling.store.customer_data_retriever import CustomerDataRetriever
-from customer_profiling.utils.load_css_file import local_css_file
-from customer_profiling.utils.query_params import QueryParams, manage_query_params
-from customer_profiling.utils.layout import insert_blank, remove_whitespace_top, hide_menu_button
-from customer_profiling.utils.format_data import get_date_string, get_gender_string, get_winning_status_string
-from customer_profiling.utils.show_data import show_data
+from datamodel.customer_profile import CustomerProfile
+from datamodel.constants import DEFAULT_USER_ID
+from store.customer_data_retriever import CustomerDataRetriever
+from utils.load_css_file import local_css_file
+from utils.query_params import QueryParams, manage_query_params
+from utils.layout import insert_blank, remove_whitespace_top, hide_menu_button
+from utils.format_data import get_date_string, get_gender_string, get_winning_status_string
+from utils.show_data import show_data
 
 
 # ***********************************************************************************************************************

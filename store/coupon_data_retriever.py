@@ -4,7 +4,7 @@
 # from pydantic import BaseModel
 #
 # from core.store.delta_lake_reader import DeltaLakeReader
-# from customer_profiling.datamodel.columns import Columns
+# from datamodel.columns import Columns
 #
 # class CouponDataRetriever(BaseModel):
 #

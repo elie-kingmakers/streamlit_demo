@@ -2,7 +2,7 @@
 # import pyspark.sql.functions as f
 # from pydantic import BaseModel
 #
-# from customer_profiling.datamodel.columns import Columns
+# from datamodel.columns import Columns
 #
 # class PopulationProfile(BaseModel):
 #     totalNumberOfUsers: int = 0
