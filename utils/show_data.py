@@ -2,6 +2,8 @@ from typing import Any
 
 import streamlit as st
 
+from customer_profiling.datamodel.constants import MAX_FULL_NUMBER
+
 
 def show_data(label: str = None, value: Any = None, inBold: bool = False, column: st.columns = None):
     if label is None:
@@ -14,7 +16,10 @@ def show_data(label: str = None, value: Any = None, inBold: bool = False, column
 
     if value is not None:
         if isinstance(value, float):
-            markdownString += "{:.2f}".format(value)
+            if value > MAX_FULL_NUMBER or value < -MAX_FULL_NUMBER:
+                markdownString += "{:.2e}".format(value)
+            else:
+                markdownString += "{:.2f}".format(value)
         else:
             markdownString += f"{value}"
 

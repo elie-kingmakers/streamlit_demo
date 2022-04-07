@@ -2,7 +2,7 @@ import pandas as pd
 from pydantic import BaseModel
 from datetime import datetime
 
-from datamodel.columns import Columns
+from customer_profiling.datamodel.columns import Columns
 
 
 class CustomerProfile(BaseModel):
@@ -88,6 +88,9 @@ class CustomerProfile(BaseModel):
     returnOnStakePercentagePrematch: float = 0.0
     returnOnStakePercentageLive: float = 0.0
     returnOnStakePercentage: float = 0.0
+    marginPrematch: float = 0.0
+    marginLive: float = 0.0
+    margin: float = 0.0
     winningStatusPrematch: int = 0
     winningStatusLive: int = 0
     winningStatus: int = 0
@@ -245,6 +248,9 @@ class CustomerProfile(BaseModel):
         customerProfile.returnOnStakePercentage = float(
             dfCustomer.iloc[0][Columns.CustomerData.RETURN_ON_STAKE_PERCENTAGE]
         )
+        customerProfile.marginPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.MARGIN_PREMATCH])
+        customerProfile.marginLive = float(dfCustomer.iloc[0][Columns.CustomerData.MARGIN_LIVE])
+        customerProfile.margin = float(dfCustomer.iloc[0][Columns.CustomerData.MARGIN])
         customerProfile.winningStatusPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS_PREMATCH])
         customerProfile.winningStatusLive = int(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS_LIVE])
         customerProfile.winningStatus = int(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS])

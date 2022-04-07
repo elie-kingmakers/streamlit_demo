@@ -7,14 +7,14 @@ import streamlit as st
 # from core.utils.histogram import get_histogram
 # from core.utils.filestore import get_filestore_file_url
 # from core.store.databricks_api_engine import DatabricksApiEngine
-from datamodel.customer_profile import CustomerProfile
-from datamodel.constants import DEFAULT_USER_ID
-from store.customer_data_retriever import CustomerDataRetriever
-from utils.load_css_file import local_css_file
-from utils.query_params import QueryParams, manage_query_params
-from utils.layout import insert_blank, remove_whitespace_top, hide_menu_button
-from utils.format_data import get_date_string, get_gender_string, get_winning_status_string
-from utils.show_data import show_data
+from customer_profiling.datamodel.customer_profile import CustomerProfile
+from customer_profiling.datamodel.constants import DEFAULT_USER_ID
+from customer_profiling.store.customer_data_retriever import CustomerDataRetriever
+from customer_profiling.utils.load_css_file import local_css_file
+from customer_profiling.utils.query_params import QueryParams, manage_query_params
+from customer_profiling.utils.layout import insert_blank, remove_whitespace_top, hide_menu_button
+from customer_profiling.utils.format_data import get_date_string, get_gender_string, get_winning_status_string
+from customer_profiling.utils.show_data import show_data
 
 
 # ***********************************************************************************************************************
@@ -24,7 +24,7 @@ from utils.show_data import show_data
 st.set_page_config(page_title="Customer Profile", layout="wide")
 
 # need to specify 'customer_profiling/' for streamlit to find it
-local_css_file("style.css")
+local_css_file("customer_profiling/style.css")
 
 # manage query parameters
 queryParams = manage_query_params()
@@ -57,14 +57,38 @@ with st.spinner("Loading Customers Table..."):
 
 form = st.form(key="customer_profile")
 
-userId = form.text_input(label="Enter User ID", value=userId)
+col1, col2 = form.columns([1, 5])
+
+userIdType = col1.radio(
+     label="ID Type:",
+     options=('User ID', 'Platform ID')
+)
+
+userId = col2.text_input(label="ID:", value=userId)
 
 getProfileButton = form.form_submit_button(label="Get Profile")
 
-# userId = 449671
+# userId = 449671 (536466)
 if getProfileButton or (userId != DEFAULT_USER_ID):
 
-    dfCustomer = CustomerDataRetriever.get_user_data(dfCustomers=dfCustomers, userId=userId)
+    if userIdType == 'User ID':
+        dfCustomer = CustomerDataRetriever.get_user_data_from_user_id(dfCustomers=dfCustomers, userId=userId)
+    elif userIdType == 'Platform ID':
+        dfCustomer = CustomerDataRetriever.get_user_data_from_platform_id(dfCustomers=dfCustomers, platformUserId=userId)
+    else:
+        dfCustomer = None
+        st.warning('Please pick a valid ID type.')
+        st.stop()
+
+    if dfCustomer.empty:
+        st.error('User Not Found.')
+        st.warning('''
+            Possible Reasons:\n
+            * ID Type is wrong\n
+            * ID is wrong\n
+            * User is brand new (registration less than 1 day old)
+            ''')
+        st.stop()
 
     customerProfile = CustomerProfile.from_data(dfCustomer=dfCustomer)
 
@@ -127,7 +151,7 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     # ***********************************************************************************************************************
     st.markdown("""---""")
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, blank1 = st.columns([2, 1, 1, 1, 2])
 
     insert_blank(column=col1)
     col2.write("**Pre-Match**")
@@ -199,6 +223,11 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     show_data(value=customerProfile.returnOnStakePercentageLive, inBold=True, column=col3)
     show_data(value=customerProfile.returnOnStakePercentage, inBold=True, column=col4)
 
+    col1.write("**Margin**")
+    show_data(value=customerProfile.marginPrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.marginLive, inBold=True, column=col3)
+    show_data(value=customerProfile.margin, inBold=True, column=col4)
+
     col1.write("**Winning Status**")
     show_data(value=get_winning_status_string(customerProfile.winningStatusPrematch), inBold=True, column=col2)
     show_data(value=get_winning_status_string(customerProfile.winningStatusLive), inBold=True, column=col3)
@@ -222,6 +251,15 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     # show_data(label='', value=customerProfile., inBold=True, column=col2)
     # show_data(label='', value=customerProfile., inBold=True, column=col3)
     # show_data(label='', value=customerProfile., inBold=True, column=col4)
+
+
+
+
+
+
+
+
+
 
 
 # # ------------------------------------------------------------------------------------------------------------------

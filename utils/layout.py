@@ -1,6 +1,6 @@
 import streamlit as st
 
-from datamodel.constants import BLANK_SPACE
+from customer_profiling.datamodel.constants import BLANK_SPACE
 
 
 def insert_blank(column: st.columns = None):

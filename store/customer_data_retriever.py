@@ -5,7 +5,7 @@ import streamlit as st
 from pydantic import BaseModel
 
 from core.store.databricks_api_engine import DatabricksApiEngine
-from datamodel.columns import Columns
+from customer_profiling.datamodel.columns import Columns
 
 
 class CustomerDataRetriever(BaseModel):
@@ -23,6 +23,13 @@ class CustomerDataRetriever(BaseModel):
         return dfCustomers
 
     @staticmethod
-    def get_user_data(dfCustomers: pd.DataFrame, userId: int) -> pd.DataFrame:
+    def get_user_data_from_user_id(dfCustomers: pd.DataFrame, userId: int) -> pd.DataFrame:
         dfUser = dfCustomers[dfCustomers[Columns.CustomerData.USER_ID] == int(userId)]
         return dfUser
+
+    @staticmethod
+    def get_user_data_from_platform_id(dfCustomers: pd.DataFrame, platformUserId: str) -> pd.DataFrame:
+        dfUser = dfCustomers[dfCustomers[Columns.CustomerData.PLATFORM_USER_ID] == str(platformUserId)]
+        return dfUser
+
+
