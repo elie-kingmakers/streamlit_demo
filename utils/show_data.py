@@ -2,7 +2,7 @@ from typing import Any
 
 import streamlit as st
 
-from customer_profiling.datamodel.constants import MAX_FULL_NUMBER
+from datamodel.constants import MAX_FULL_NUMBER
 
 
 def show_data(label: str = None, value: Any = None, inBold: bool = False, column: st.columns = None):

@@ -5,7 +5,7 @@ import streamlit as st
 from pydantic import BaseModel
 
 from core.store.databricks_api_engine import DatabricksApiEngine
-from customer_profiling.datamodel.columns import Columns
+from datamodel.columns import Columns
 
 
 class CustomerDataRetriever(BaseModel):

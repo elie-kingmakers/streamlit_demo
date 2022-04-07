@@ -2,7 +2,7 @@ import pandas as pd
 from pydantic import BaseModel
 from datetime import datetime
 
-from customer_profiling.datamodel.columns import Columns
+from datamodel.columns import Columns
 
 
 class CustomerProfile(BaseModel):
