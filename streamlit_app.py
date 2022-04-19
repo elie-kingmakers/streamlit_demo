@@ -32,7 +32,7 @@ userId = queryParams[QueryParams.USER_ID][0]
 
 # layout changes
 remove_whitespace_top()
-hide_menu_button()
+# hide_menu_button() # keep it for now to reset cache
 
 
 # ***********************************************************************************************************************
