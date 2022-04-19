@@ -86,6 +86,7 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
             Possible Reasons:\n
             * ID Type is wrong\n
             * ID is wrong\n
+            * User does not have settled coupons\n
             * User is brand new (registration less than 1 day old)
             ''')
         st.stop()
