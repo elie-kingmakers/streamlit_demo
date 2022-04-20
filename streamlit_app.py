@@ -68,7 +68,7 @@ userId = col2.text_input(label="ID:", value=userId)
 
 getProfileButton = form.form_submit_button(label="Get Profile")
 
-# userId = 449671 (536466)
+# userId = 330677 (413316)
 if getProfileButton or (userId != DEFAULT_USER_ID):
 
     if userIdType == 'User ID':
@@ -225,9 +225,9 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     show_data(value=customerProfile.returnOnStakePercentage, inBold=True, column=col4)
 
     col1.write("**Margin**")
-    show_data(value=customerProfile.marginPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.marginLive, inBold=True, column=col3)
-    show_data(value=customerProfile.margin, inBold=True, column=col4)
+    show_data(value=customerProfile.marginPrematch, sign='%', inBold=True, column=col2)
+    show_data(value=customerProfile.marginLive, sign='%', inBold=True, column=col3)
+    show_data(value=customerProfile.margin, sign='%', inBold=True, column=col4)
 
     col1.write("**Winning Status**")
     show_data(value=get_winning_status_string(customerProfile.winningStatusPrematch), inBold=True, column=col2)

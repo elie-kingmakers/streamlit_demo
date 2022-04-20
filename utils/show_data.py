@@ -5,7 +5,7 @@ import streamlit as st
 from datamodel.constants import MAX_FULL_NUMBER
 
 
-def show_data(label: str = None, value: Any = None, inBold: bool = False, column: st.columns = None):
+def show_data(label: str = None, value: Any = None, sign:str = None, inBold: bool = False, column: st.columns = None):
     if label is None:
         markdownString = ""
     else:
@@ -22,6 +22,9 @@ def show_data(label: str = None, value: Any = None, inBold: bool = False, column
                 markdownString += "{:.2f}".format(value)
         else:
             markdownString += f"{value}"
+
+    if sign is not None:
+        markdownString += f" {sign}"
 
     if inBold:
         markdownString += "</strong>"
