@@ -28,7 +28,9 @@ local_css_file("style.css")
 
 # manage query parameters
 queryParams = manage_query_params()
-userId = queryParams[QueryParams.USER_ID][0]
+# userId = queryParams[QueryParams.USER_ID][0]
+
+userId = 0
 
 # layout changes
 remove_whitespace_top()
