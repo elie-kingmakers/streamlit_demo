@@ -152,12 +152,17 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     # ***********************************************************************************************************************
     st.markdown("""---""")
 
-    col1, col2, col3, col4, blank1 = st.columns([2, 1, 1, 1, 2])
+    col1, col2, col3, col4, _ = st.columns([2, 1, 1, 1, 2])
 
     insert_blank(column=col1)
     col2.write("**Pre-Match**")
     col3.write("**Live**")
     col4.write("**Total**")
+
+    col1.write("**Total Number of Coupons**")
+    show_data(value=customerProfile.totalNumberOfCouponsPrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.totalNumberOfCouponsLive, inBold=True, column=col3)
+    show_data(value=customerProfile.totalNumberOfCoupons, inBold=True, column=col4)
 
     col1.write("**Avg. Selection Odds**")
     show_data(value=customerProfile.averageSelectionOddsPrematch, inBold=True, column=col2)
@@ -220,14 +225,14 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     show_data(value=customerProfile.netEarnings, inBold=True, column=col4)
 
     col1.write("**Return on Stake Pct.**")
-    show_data(value=customerProfile.returnOnStakePercentagePrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.returnOnStakePercentageLive, inBold=True, column=col3)
-    show_data(value=customerProfile.returnOnStakePercentage, inBold=True, column=col4)
+    show_data(value=customerProfile.returnOnStakePercentagePrematch, sign="%", inBold=True, column=col2)
+    show_data(value=customerProfile.returnOnStakePercentageLive, sign="%", inBold=True, column=col3)
+    show_data(value=customerProfile.returnOnStakePercentage, sign="%", inBold=True, column=col4)
 
     col1.write("**Margin**")
-    show_data(value=customerProfile.marginPrematch, sign='%', inBold=True, column=col2)
-    show_data(value=customerProfile.marginLive, sign='%', inBold=True, column=col3)
-    show_data(value=customerProfile.margin, sign='%', inBold=True, column=col4)
+    show_data(value=customerProfile.marginPrematch * 100.0, sign="%", inBold=True, column=col2)
+    show_data(value=customerProfile.marginLive * 100.0, sign="%", inBold=True, column=col3)
+    show_data(value=customerProfile.margin * 100.0, sign="%", inBold=True, column=col4)
 
     col1.write("**Winning Status**")
     show_data(value=get_winning_status_string(customerProfile.winningStatusPrematch), inBold=True, column=col2)
@@ -245,9 +250,49 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     show_data(value=customerProfile.falsePositives, inBold=True, column=col4)
 
     col1.write("**Betting Accuracy**")
-    show_data(value=customerProfile.accuracyPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.accuracyLive, inBold=True, column=col3)
-    show_data(value=customerProfile.accuracy, inBold=True, column=col4)
+    show_data(value=customerProfile.accuracyPrematch, sign="%", inBold=True, column=col2)
+    show_data(value=customerProfile.accuracyLive, sign="%", inBold=True, column=col3)
+    show_data(value=customerProfile.accuracy, sign="%", inBold=True, column=col4)
+
+    # ***********************************************************************************************************************
+    st.markdown("""---""")
+
+    col1, col2, col3, col4, _ = st.columns([2, 1, 1, 1, 2])
+
+    insert_blank(column=col1)
+    col2.write("**Pre-Match**")
+    col3.write("**Live**")
+    col4.write("**Total**")
+
+    col1.write("**Cashout Total Number of Coupons**")
+    show_data(value=customerProfile.cashoutTotalNumberOfCouponsPrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutTotalNumberOfCouponsLive, inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutTotalNumberOfCoupons, inBold=True, column=col4)
+
+    col1.write("**Cashout Total Stake**")
+    show_data(value=customerProfile.cashoutTotalStakePrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutTotalStakeLive, inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutTotalStake, inBold=True, column=col4)
+
+    col1.write("**Cashout Total Return**")
+    show_data(value=customerProfile.cashoutTotalReturnPrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutTotalReturnLive, inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutTotalReturn, inBold=True, column=col4)
+
+    col1.write("**Cashout Potential Payout**")
+    show_data(value=customerProfile.cashoutPotentialPayoutPrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutPotentialPayoutLive, inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutPotentialPayout, inBold=True, column=col4)
+
+    col1.write("**Cashout Net Earnings**")
+    show_data(value=customerProfile.cashoutNetEarningsPrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutNetEarningsLive, inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutNetEarnings, inBold=True, column=col4)
+
+    col1.write("**Cashout Margin**")
+    show_data(value=customerProfile.cashoutMarginPrematch * 100.0, sign="%", inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutMarginLive * 100.0, sign="%", inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutMargin * 100.0, sign="%", inBold=True, column=col4)
 
     # show_data(label='', value=customerProfile., inBold=True, column=col2)
     # show_data(label='', value=customerProfile., inBold=True, column=col3)

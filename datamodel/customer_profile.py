@@ -56,6 +56,8 @@ class CustomerProfile(BaseModel):
     falsePositivesLive: int = 0
     falsePositives: int = 0
 
+    totalNumberOfCouponsPrematch: int = 0
+    totalNumberOfCouponsLive: int = 0
     totalNumberOfCoupons: int = 0
     totalNumberOfSelectionsPrematch: int = 0
     totalNumberOfSelectionsLive: int = 0
@@ -97,6 +99,25 @@ class CustomerProfile(BaseModel):
     accuracyPrematch: float = 0.0
     accuracyLive: float = 0.0
     accuracy: float = 0.0
+
+    cashoutTotalNumberOfCouponsPrematch: int = 0
+    cashoutTotalNumberOfCouponsLive: int = 0
+    cashoutTotalNumberOfCoupons: int = 0
+    cashoutTotalStakePrematch: float = 0.0
+    cashoutTotalStakeLive: float = 0.0
+    cashoutTotalStake: float = 0.0
+    cashoutTotalReturnPrematch: float = 0.0
+    cashoutTotalReturnLive: float = 0.0
+    cashoutTotalReturn: float = 0.0
+    cashoutNetEarningsPrematch: float = 0.0
+    cashoutNetEarningsLive: float = 0.0
+    cashoutNetEarnings: float = 0.0
+    cashoutPotentialPayoutPrematch: float = 0.0
+    cashoutPotentialPayoutLive: float = 0.0
+    cashoutPotentialPayout: float = 0.0
+    cashoutMarginPrematch: float = 0.0
+    cashoutMarginLive: float = 0.0
+    cashoutMargin: float = 0.0
 
     clusterAverageCouponStake: str = ""
     clusterAccuracy: str = ""
@@ -182,6 +203,8 @@ class CustomerProfile(BaseModel):
         customerProfile.falsePositivesLive = int(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES_LIVE])
         customerProfile.falsePositives = int(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES])
 
+        customerProfile.totalNumberOfCouponsPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS_PREMATCH])
+        customerProfile.totalNumberOfCouponsLive = int(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS_LIVE])
         customerProfile.totalNumberOfCoupons = int(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS])
         customerProfile.totalNumberOfSelectionsPrematch = int(
             dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_SELECTIONS_PREMATCH]
@@ -257,6 +280,25 @@ class CustomerProfile(BaseModel):
         customerProfile.accuracyPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY_PREMATCH])
         customerProfile.accuracyLive = float(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY_LIVE])
         customerProfile.accuracy = float(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY])
+
+        customerProfile.cashoutTotalNumberOfCouponsPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS_PREMATCH])
+        customerProfile.cashoutTotalNumberOfCouponsLive = int(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS_LIVE])
+        customerProfile.cashoutTotalNumberOfCoupons = int(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS])
+        customerProfile.cashoutTotalStakePrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE_PREMATCH])
+        customerProfile.cashoutTotalStakeLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE_LIVE])
+        customerProfile.cashoutTotalStake = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE])
+        customerProfile.cashoutTotalReturnPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN_PREMATCH])
+        customerProfile.cashoutTotalReturnLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN_LIVE])
+        customerProfile.cashoutTotalReturn = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN])
+        customerProfile.cashoutNetEarningsPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS_PREMATCH])
+        customerProfile.cashoutNetEarningsLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS_LIVE])
+        customerProfile.cashoutNetEarnings = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS])
+        customerProfile.cashoutPotentialPayoutPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT_PREMATCH])
+        customerProfile.cashoutPotentialPayoutLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT_LIVE])
+        customerProfile.cashoutPotentialPayout = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT])
+        customerProfile.cashoutMarginPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_PREMATCH])
+        customerProfile.cashoutMarginLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_LIVE])
+        customerProfile.cashoutMargin = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN])
 
         customerProfile.clusterAverageCouponStake = str(
             dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_AVERAGE_COUPON_STAKE]
