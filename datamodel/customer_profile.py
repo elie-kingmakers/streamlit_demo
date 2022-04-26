@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from datetime import datetime
 
 from datamodel.columns import Columns
+from utils.format_data import get_value
 
 
 class CustomerProfile(BaseModel):
@@ -135,179 +136,123 @@ class CustomerProfile(BaseModel):
     def from_data(cls, dfCustomer: pd.DataFrame):
         customerProfile = cls()
 
-        customerProfile.userId = int(dfCustomer.iloc[0][Columns.CustomerData.USER_ID])
-        customerProfile.clientIP = str(dfCustomer.iloc[0][Columns.CustomerData.CLIENT_IP])
+        customerProfile.userId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_ID], "int")
+        customerProfile.clientIP = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLIENT_IP], "str")
 
-        customerProfile.platformUserId = int(dfCustomer.iloc[0][Columns.CustomerData.PLATFORM_USER_ID])
-        customerProfile.userTypeId = int(dfCustomer.iloc[0][Columns.CustomerData.USER_TYPE_ID])
-        customerProfile.userTypeName = str(dfCustomer.iloc[0][Columns.CustomerData.USER_TYPE_NAME])
-        customerProfile.userStatusId = int(dfCustomer.iloc[0][Columns.CustomerData.USER_STATUS_ID])
-        customerProfile.userStatusName = str(dfCustomer.iloc[0][Columns.CustomerData.USER_STATUS_NAME])
-        customerProfile.firstName = str(dfCustomer.iloc[0][Columns.CustomerData.FIRST_NAME])
-        customerProfile.lastName = str(dfCustomer.iloc[0][Columns.CustomerData.LAST_NAME])
-        customerProfile.username = str(dfCustomer.iloc[0][Columns.CustomerData.USERNAME])
-        customerProfile.email = str(dfCustomer.iloc[0][Columns.CustomerData.EMAIL])
-        customerProfile.gender = str(dfCustomer.iloc[0][Columns.CustomerData.GENDER])
-        customerProfile.birthDateKeyUTC = int(dfCustomer.iloc[0][Columns.CustomerData.BIRTH_DATE_KEY_UTC])
-        customerProfile.userCurrencyId = int(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_ID])
-        customerProfile.userCurrencyName = str(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_NAME])
-        customerProfile.subscriptionDateKeyUTC = int(dfCustomer.iloc[0][Columns.CustomerData.SUBSCRIPTION_DATE_KEY_UTC])
-        customerProfile.verificationLevelId = int(dfCustomer.iloc[0][Columns.CustomerData.VERIFICATION_LEVEL_ID])
-        customerProfile.verificationLevelName = str(dfCustomer.iloc[0][Columns.CustomerData.VERIFICATION_LEVEL_NAME])
-        customerProfile.streetAddress = str(dfCustomer.iloc[0][Columns.CustomerData.STREET_ADDRESS])
-        customerProfile.town = str(dfCustomer.iloc[0][Columns.CustomerData.TOWN])
-        customerProfile.zipCode = str(dfCustomer.iloc[0][Columns.CustomerData.ZIP_CODE])
-        customerProfile.countryId = int(dfCustomer.iloc[0][Columns.CustomerData.COUNTRY_ID])
-        customerProfile.countryName = str(dfCustomer.iloc[0][Columns.CustomerData.COUNTRY_NAME])
-        customerProfile.phone = str(dfCustomer.iloc[0][Columns.CustomerData.PHONE])
-        customerProfile.mobilePhone = str(dfCustomer.iloc[0][Columns.CustomerData.MOBILE_PHONE])
+        customerProfile.platformUserId = get_value(dfCustomer.iloc[0][Columns.CustomerData.PLATFORM_USER_ID], "int")
+        customerProfile.userTypeId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_TYPE_ID], "int")
+        customerProfile.userTypeName = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_TYPE_NAME], "str")
+        customerProfile.userStatusId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_STATUS_ID], "int")
+        customerProfile.userStatusName = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_STATUS_NAME], "str")
+        customerProfile.firstName = get_value(dfCustomer.iloc[0][Columns.CustomerData.FIRST_NAME], "str")
+        customerProfile.lastName = get_value(dfCustomer.iloc[0][Columns.CustomerData.LAST_NAME], "str")
+        customerProfile.username = get_value(dfCustomer.iloc[0][Columns.CustomerData.USERNAME], "str")
+        customerProfile.email = get_value(dfCustomer.iloc[0][Columns.CustomerData.EMAIL], "str")
+        customerProfile.gender = get_value(dfCustomer.iloc[0][Columns.CustomerData.GENDER], "str")
+        customerProfile.birthDateKeyUTC = get_value(dfCustomer.iloc[0][Columns.CustomerData.BIRTH_DATE_KEY_UTC], "int")
+        customerProfile.userCurrencyId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_ID], "int")
+        customerProfile.userCurrencyName = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_NAME], "str")
+        customerProfile.subscriptionDateKeyUTC = get_value(dfCustomer.iloc[0][Columns.CustomerData.SUBSCRIPTION_DATE_KEY_UTC], "int")
+        customerProfile.verificationLevelId = get_value(dfCustomer.iloc[0][Columns.CustomerData.VERIFICATION_LEVEL_ID], "int")
+        customerProfile.verificationLevelName = get_value(dfCustomer.iloc[0][Columns.CustomerData.VERIFICATION_LEVEL_NAME], "str")
+        customerProfile.streetAddress = get_value(dfCustomer.iloc[0][Columns.CustomerData.STREET_ADDRESS], "str")
+        customerProfile.town = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOWN], "str")
+        customerProfile.zipCode = get_value(dfCustomer.iloc[0][Columns.CustomerData.ZIP_CODE], "str")
+        customerProfile.countryId = get_value(dfCustomer.iloc[0][Columns.CustomerData.COUNTRY_ID], "int")
+        customerProfile.countryName = get_value(dfCustomer.iloc[0][Columns.CustomerData.COUNTRY_NAME], "str")
+        customerProfile.phone = get_value(dfCustomer.iloc[0][Columns.CustomerData.PHONE], "str")
+        customerProfile.mobilePhone = get_value(dfCustomer.iloc[0][Columns.CustomerData.MOBILE_PHONE], "str")
 
-        customerProfile.availableBalanceTotal = float(dfCustomer.iloc[0][Columns.CustomerData.AVAILABLE_BALANCE_TOTAL])
+        customerProfile.availableBalanceTotal = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVAILABLE_BALANCE_TOTAL], "float")
 
-        customerProfile.averageSelectionOddsPrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS_PREMATCH]
-        )
-        customerProfile.averageSelectionOddsLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS_LIVE]
-        )
-        customerProfile.averageSelectionOdds = float(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS])
-        customerProfile.averageCouponOddsPrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_ODDS_PREMATCH]
-        )
-        customerProfile.averageCouponOddsLive = float(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_ODDS_LIVE])
-        customerProfile.averageCouponOdds = float(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_ODDS])
-        customerProfile.averageSelectionStakePrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_STAKE_PREMATCH]
-        )
-        customerProfile.averageSelectionStakeLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_STAKE_LIVE]
-        )
-        customerProfile.averageSelectionStake = float(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_STAKE])
-        customerProfile.averageSelectionReturnPrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_RETURN_PREMATCH]
-        )
-        customerProfile.averageSelectionReturnLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_RETURN_LIVE]
-        )
-        customerProfile.averageSelectionReturn = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_RETURN]
-        )
-        customerProfile.averageProbabilityEstimateKellyCriterion = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_PROBABILITY_ESTIMATE_KELLY_CRITERION]
-        )
-        customerProfile.averageBetScore = float(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_BET_SCORE])
-        customerProfile.truePositivesPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.TRUE_POSITIVES_PREMATCH])
-        customerProfile.truePositivesLive = int(dfCustomer.iloc[0][Columns.CustomerData.TRUE_POSITIVES_LIVE])
-        customerProfile.truePositives = int(dfCustomer.iloc[0][Columns.CustomerData.TRUE_POSITIVES])
-        customerProfile.falsePositivesPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES_PREMATCH])
-        customerProfile.falsePositivesLive = int(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES_LIVE])
-        customerProfile.falsePositives = int(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES])
+        customerProfile.averageSelectionOddsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS_PREMATCH], "float")
+        customerProfile.averageSelectionOddsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS_LIVE], "float")
+        customerProfile.averageSelectionOdds = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS], "float")
+        customerProfile.averageCouponOddsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_ODDS_PREMATCH], "float")
+        customerProfile.averageCouponOddsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_ODDS_LIVE], "float")
+        customerProfile.averageCouponOdds = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_ODDS], "float")
+        customerProfile.averageSelectionStakePrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_STAKE_PREMATCH], "float")
+        customerProfile.averageSelectionStakeLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_STAKE_LIVE], "float")
+        customerProfile.averageSelectionStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_STAKE], "float")
+        customerProfile.averageSelectionReturnPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_RETURN_PREMATCH], "float")
+        customerProfile.averageSelectionReturnLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_RETURN_LIVE], "float")
+        customerProfile.averageSelectionReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_RETURN], "float")
+        customerProfile.averageProbabilityEstimateKellyCriterion = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_PROBABILITY_ESTIMATE_KELLY_CRITERION], "float")
+        customerProfile.averageBetScore = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_BET_SCORE], "float")
+        customerProfile.truePositivesPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.TRUE_POSITIVES_PREMATCH], "int")
+        customerProfile.truePositivesLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.TRUE_POSITIVES_LIVE], "int")
+        customerProfile.truePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.TRUE_POSITIVES], "int")
+        customerProfile.falsePositivesPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES_PREMATCH], "int")
+        customerProfile.falsePositivesLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES_LIVE], "int")
+        customerProfile.falsePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.FALSE_POSITIVES], "int")
 
-        customerProfile.totalNumberOfCouponsPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS_PREMATCH])
-        customerProfile.totalNumberOfCouponsLive = int(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS_LIVE])
-        customerProfile.totalNumberOfCoupons = int(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS])
-        customerProfile.totalNumberOfSelectionsPrematch = int(
-            dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_SELECTIONS_PREMATCH]
-        )
-        customerProfile.totalNumberOfSelectionsLive = int(
-            dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_SELECTIONS_LIVE]
-        )
-        customerProfile.totalNumberOfSelections = int(
-            dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_SELECTIONS]
-        )
-        customerProfile.averageCouponNumberOfSelectionsPrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_NUMBER_OF_SELECTIONS_PREMATCH]
-        )
-        customerProfile.averageCouponNumberOfSelectionsLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_NUMBER_OF_SELECTIONS_LIVE]
-        )
-        customerProfile.averageCouponNumberOfSelections = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_NUMBER_OF_SELECTIONS]
-        )
-        customerProfile.averageCouponPotentialPayoutPrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_POTENTIAL_PAYOUT_PREMATCH]
-        )
-        customerProfile.averageCouponPotentialPayoutLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_POTENTIAL_PAYOUT_LIVE]
-        )
-        customerProfile.averageCouponPotentialPayout = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_POTENTIAL_PAYOUT]
-        )
-        customerProfile.averageCouponStakePrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_STAKE_PREMATCH]
-        )
-        customerProfile.averageCouponStakeLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_STAKE_LIVE]
-        )
-        customerProfile.averageCouponStake = float(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_STAKE])
-        customerProfile.averageCouponReturnPrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_RETURN_PREMATCH]
-        )
-        customerProfile.averageCouponReturnLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_RETURN_LIVE]
-        )
-        customerProfile.averageCouponReturn = float(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_RETURN])
-        customerProfile.highestCouponStake = float(dfCustomer.iloc[0][Columns.CustomerData.HIGHEST_COUPON_STAKE])
-        customerProfile.highestCouponReturn = float(dfCustomer.iloc[0][Columns.CustomerData.HIGHEST_COUPON_RETURN])
-        customerProfile.totalStakePrematch = float(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_STAKE_PREMATCH])
-        customerProfile.totalStakeLive = float(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_STAKE_LIVE])
-        customerProfile.totalStake = float(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_STAKE])
-        customerProfile.totalReturnPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN_PREMATCH])
-        customerProfile.totalReturnLive = float(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN_LIVE])
-        customerProfile.totalReturn = float(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN])
-        customerProfile.mostRecentCouponDateKeyUTC = int(
-            dfCustomer.iloc[0][Columns.CustomerData.MOST_RECENT_COUPON_DATE_KEY_UTC]
-        )
+        customerProfile.totalNumberOfCouponsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS_PREMATCH], "int")
+        customerProfile.totalNumberOfCouponsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS_LIVE], "int")
+        customerProfile.totalNumberOfCoupons = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_COUPONS], "int")
+        customerProfile.totalNumberOfSelectionsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_SELECTIONS_PREMATCH], "int")
+        customerProfile.totalNumberOfSelectionsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_SELECTIONS_LIVE], "int")
+        customerProfile.totalNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_NUMBER_OF_SELECTIONS], "int")
+        customerProfile.averageCouponNumberOfSelectionsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_NUMBER_OF_SELECTIONS_PREMATCH], "float")
+        customerProfile.averageCouponNumberOfSelectionsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_NUMBER_OF_SELECTIONS_LIVE], "float")
+        customerProfile.averageCouponNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_NUMBER_OF_SELECTIONS], "float")
+        customerProfile.averageCouponPotentialPayoutPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_POTENTIAL_PAYOUT_PREMATCH], "float")
+        customerProfile.averageCouponPotentialPayoutLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_POTENTIAL_PAYOUT_LIVE], "float")
+        customerProfile.averageCouponPotentialPayout = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_POTENTIAL_PAYOUT], "float")
+        customerProfile.averageCouponStakePrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_STAKE_PREMATCH], "float")
+        customerProfile.averageCouponStakeLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_STAKE_LIVE], "float")
+        customerProfile.averageCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_STAKE], "float")
+        customerProfile.averageCouponReturnPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_RETURN_PREMATCH], "float")
+        customerProfile.averageCouponReturnLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_RETURN_LIVE], "float")
+        customerProfile.averageCouponReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_COUPON_RETURN], "float")
+        customerProfile.highestCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.HIGHEST_COUPON_STAKE], "float")
+        customerProfile.highestCouponReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.HIGHEST_COUPON_RETURN], "float")
+        customerProfile.totalStakePrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_STAKE_PREMATCH], "float")
+        customerProfile.totalStakeLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_STAKE_LIVE], "float")
+        customerProfile.totalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_STAKE], "float")
+        customerProfile.totalReturnPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN_PREMATCH], "float")
+        customerProfile.totalReturnLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN_LIVE], "float")
+        customerProfile.totalReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN], "float")
+        customerProfile.mostRecentCouponDateKeyUTC = get_value(dfCustomer.iloc[0][Columns.CustomerData.MOST_RECENT_COUPON_DATE_KEY_UTC], "int")
 
-        customerProfile.netEarningsPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS_PREMATCH])
-        customerProfile.netEarningsLive = float(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS_LIVE])
-        customerProfile.netEarnings = float(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS])
-        customerProfile.returnOnStakePercentagePrematch = float(
-            dfCustomer.iloc[0][Columns.CustomerData.RETURN_ON_STAKE_PERCENTAGE_PREMATCH]
-        )
-        customerProfile.returnOnStakePercentageLive = float(
-            dfCustomer.iloc[0][Columns.CustomerData.RETURN_ON_STAKE_PERCENTAGE_LIVE]
-        )
-        customerProfile.returnOnStakePercentage = float(
-            dfCustomer.iloc[0][Columns.CustomerData.RETURN_ON_STAKE_PERCENTAGE]
-        )
-        customerProfile.marginPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.MARGIN_PREMATCH])
-        customerProfile.marginLive = float(dfCustomer.iloc[0][Columns.CustomerData.MARGIN_LIVE])
-        customerProfile.margin = float(dfCustomer.iloc[0][Columns.CustomerData.MARGIN])
-        customerProfile.winningStatusPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS_PREMATCH])
-        customerProfile.winningStatusLive = int(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS_LIVE])
-        customerProfile.winningStatus = int(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS])
-        customerProfile.accuracyPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY_PREMATCH])
-        customerProfile.accuracyLive = float(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY_LIVE])
-        customerProfile.accuracy = float(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY])
+        customerProfile.netEarningsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS_PREMATCH], "float")
+        customerProfile.netEarningsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS_LIVE], "float")
+        customerProfile.netEarnings = get_value(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS], "float")
+        customerProfile.returnOnStakePercentagePrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.RETURN_ON_STAKE_PERCENTAGE_PREMATCH], "float")
+        customerProfile.returnOnStakePercentageLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.RETURN_ON_STAKE_PERCENTAGE_LIVE], "float")
+        customerProfile.returnOnStakePercentage = get_value(dfCustomer.iloc[0][Columns.CustomerData.RETURN_ON_STAKE_PERCENTAGE], "float")
+        customerProfile.marginPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.MARGIN_PREMATCH], "float", 100.0)
+        customerProfile.marginLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.MARGIN_LIVE], "float", 100.0)
+        customerProfile.margin = get_value(dfCustomer.iloc[0][Columns.CustomerData.MARGIN], "float", 100.0)
+        customerProfile.winningStatusPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS_PREMATCH], "int")
+        customerProfile.winningStatusLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS_LIVE], "int")
+        customerProfile.winningStatus = get_value(dfCustomer.iloc[0][Columns.CustomerData.WINNING_STATUS], "int")
+        customerProfile.accuracyPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY_PREMATCH], "float")
+        customerProfile.accuracyLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY_LIVE], "float")
+        customerProfile.accuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.ACCURACY], "float")
 
-        customerProfile.cashoutTotalNumberOfCouponsPrematch = int(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS_PREMATCH])
-        customerProfile.cashoutTotalNumberOfCouponsLive = int(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS_LIVE])
-        customerProfile.cashoutTotalNumberOfCoupons = int(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS])
-        customerProfile.cashoutTotalStakePrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE_PREMATCH])
-        customerProfile.cashoutTotalStakeLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE_LIVE])
-        customerProfile.cashoutTotalStake = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE])
-        customerProfile.cashoutTotalReturnPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN_PREMATCH])
-        customerProfile.cashoutTotalReturnLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN_LIVE])
-        customerProfile.cashoutTotalReturn = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN])
-        customerProfile.cashoutNetEarningsPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS_PREMATCH])
-        customerProfile.cashoutNetEarningsLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS_LIVE])
-        customerProfile.cashoutNetEarnings = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS])
-        customerProfile.cashoutPotentialPayoutPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT_PREMATCH])
-        customerProfile.cashoutPotentialPayoutLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT_LIVE])
-        customerProfile.cashoutPotentialPayout = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT])
-        customerProfile.cashoutMarginPrematch = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_PREMATCH])
-        customerProfile.cashoutMarginLive = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_LIVE])
-        customerProfile.cashoutMargin = float(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN])
+        customerProfile.cashoutTotalNumberOfCouponsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS_PREMATCH], "int")
+        customerProfile.cashoutTotalNumberOfCouponsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS_LIVE], "int")
+        customerProfile.cashoutTotalNumberOfCoupons = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_NUMBER_OF_COUPONS], "int")
+        customerProfile.cashoutTotalStakePrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE_PREMATCH], "float")
+        customerProfile.cashoutTotalStakeLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE_LIVE], "float")
+        customerProfile.cashoutTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_STAKE], "float")
+        customerProfile.cashoutTotalReturnPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN_PREMATCH], "float")
+        customerProfile.cashoutTotalReturnLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN_LIVE], "float")
+        customerProfile.cashoutTotalReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_TOTAL_RETURN], "float")
+        customerProfile.cashoutNetEarningsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS_PREMATCH], "float")
+        customerProfile.cashoutNetEarningsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS_LIVE], "float")
+        customerProfile.cashoutNetEarnings = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_NET_EARNINGS], "float")
+        customerProfile.cashoutPotentialPayoutPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT_PREMATCH], "float")
+        customerProfile.cashoutPotentialPayoutLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT_LIVE], "float")
+        customerProfile.cashoutPotentialPayout = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_POTENTIAL_PAYOUT], "float")
+        customerProfile.cashoutMarginPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_PREMATCH], "float", 100.0)
+        customerProfile.cashoutMarginLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_LIVE], "float", 100.0)
+        customerProfile.cashoutMargin = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN], "float", 100.0)
 
-        customerProfile.clusterAverageCouponStake = str(
-            dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_AVERAGE_COUPON_STAKE]
-        )
-        customerProfile.clusterAccuracy = str(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_ACCURACY])
-        customerProfile.clusterNumberOfCoupons = str(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_NUMBER_OF_COUPONS])
-        customerProfile.clusterNetEarnings = str(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_NET_EARNINGS])
-        customerProfile.clusterMostRecentCouponDate = str(
-            dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_MOST_RECENT_COUPON_DATE]
-        )
+        customerProfile.clusterAverageCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_AVERAGE_COUPON_STAKE], "str")
+        customerProfile.clusterAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_ACCURACY], "str")
+        customerProfile.clusterNumberOfCoupons = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_NUMBER_OF_COUPONS], "str")
+        customerProfile.clusterNetEarnings = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_NET_EARNINGS], "str")
+        customerProfile.clusterMostRecentCouponDate = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_MOST_RECENT_COUPON_DATE], "str")
 
         return customerProfile

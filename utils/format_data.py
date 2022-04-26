@@ -1,3 +1,6 @@
+from typing import Any
+
+import pandas as pd
 from datetime import datetime
 
 
@@ -50,3 +53,15 @@ def get_winning_status_string(winningStatus: int) -> str:
         return "LOSING"
     else:
         return "NEUTRAL"
+
+
+def get_value(value: Any, dataType: str, scale: float = 1.0) -> Any:
+    if pd.isna(value):
+        return "N/A"
+
+    if dataType == "str":
+        return str(value)
+    elif dataType == "int":
+        return int(value * int(scale))
+    elif dataType == "float":
+        return float(value * scale)

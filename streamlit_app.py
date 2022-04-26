@@ -230,9 +230,9 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     show_data(value=customerProfile.returnOnStakePercentage, sign="%", inBold=True, column=col4)
 
     col1.write("**Margin**")
-    show_data(value=customerProfile.marginPrematch * 100.0, sign="%", inBold=True, column=col2)
-    show_data(value=customerProfile.marginLive * 100.0, sign="%", inBold=True, column=col3)
-    show_data(value=customerProfile.margin * 100.0, sign="%", inBold=True, column=col4)
+    show_data(value=customerProfile.marginPrematch, sign="%", inBold=True, column=col2)
+    show_data(value=customerProfile.marginLive, sign="%", inBold=True, column=col3)
+    show_data(value=customerProfile.margin, sign="%", inBold=True, column=col4)
 
     col1.write("**Winning Status**")
     show_data(value=get_winning_status_string(customerProfile.winningStatusPrematch), inBold=True, column=col2)
@@ -290,9 +290,9 @@ if getProfileButton or (userId != DEFAULT_USER_ID):
     show_data(value=customerProfile.cashoutNetEarnings, inBold=True, column=col4)
 
     col1.write("**Cashout Margin**")
-    show_data(value=customerProfile.cashoutMarginPrematch * 100.0, sign="%", inBold=True, column=col2)
-    show_data(value=customerProfile.cashoutMarginLive * 100.0, sign="%", inBold=True, column=col3)
-    show_data(value=customerProfile.cashoutMargin * 100.0, sign="%", inBold=True, column=col4)
+    show_data(value=customerProfile.cashoutMarginPrematch, sign="%", inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutMarginLive, sign="%", inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutMargin, sign="%", inBold=True, column=col4)
 
     # show_data(label='', value=customerProfile., inBold=True, column=col2)
     # show_data(label='', value=customerProfile., inBold=True, column=col3)
