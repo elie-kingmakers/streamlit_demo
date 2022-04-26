@@ -10,10 +10,10 @@ class QueryParams(str, Enum):
 def manage_query_params() -> dict:
     queryParams = st.experimental_get_query_params()
 
-    if QueryParams.USER_ID not in queryParams.keys():
-        queryParamsToAdd = {QueryParams.USER_ID.value: [DEFAULT_USER_ID]}
-        queryParams.update(queryParamsToAdd)
-        st.experimental_set_query_params(**queryParams)
+    # if QueryParams.USER_ID not in queryParams.keys():
+    #     queryParamsToAdd = {QueryParams.USER_ID.value: [DEFAULT_USER_ID]}
+    #     queryParams.update(queryParamsToAdd)
+    #     st.experimental_set_query_params(**queryParams)
 
     return queryParams
 
