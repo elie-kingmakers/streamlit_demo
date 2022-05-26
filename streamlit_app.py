@@ -45,14 +45,13 @@ st.title("Customer Profile")
 # ***********************************************************************************************************************
 # ***********************************************************************************************************************
 
-with st.spinner("Loading Customers Table..."):
-
-    @st.cache
-    def load_customers_table():
-        return CustomerDataRetriever.load_data()
-
-    dfCustomers = load_customers_table()
-    # st.write(dfCustomers)
+# with st.spinner("Loading Customers Table..."):
+#
+#     @st.cache
+#     def load_customers_table():
+#         return CustomerDataRetriever.load_data()
+#
+#     dfCustomers = load_customers_table()
 
 # ***********************************************************************************************************************
 # ***********************************************************************************************************************
@@ -70,13 +69,17 @@ userId = col2.text_input(label="ID:", value=userId)
 
 getProfileButton = form.form_submit_button(label="Get Profile")
 
-# userId = 330677 (413316)
+# losing = 330677 (413316)
+# winning = 900563 (1004623)
 if getProfileButton or (userId != DEFAULT_USER_ID):
 
     if userIdType == 'User ID':
-        dfCustomer = CustomerDataRetriever.get_user_data_from_user_id(dfCustomers=dfCustomers, userId=userId)
+        dfCustomer = CustomerDataRetriever.load_customer_data(userId=userId)
     elif userIdType == 'Platform ID':
-        dfCustomer = CustomerDataRetriever.get_user_data_from_platform_id(dfCustomers=dfCustomers, platformUserId=userId)
+        # dfCustomer = CustomerDataRetriever.get_user_data_from_platform_id(dfCustomers=dfCustomers, platformUserId=userId)
+        dfCustomer = None
+        st.text('W.I.P.')
+        st.stop()
     else:
         dfCustomer = None
         st.warning('Please pick a valid ID type.')
