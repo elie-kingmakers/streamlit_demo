@@ -8,7 +8,7 @@ import streamlit as st
 # from core.utils.filestore import get_filestore_file_url
 # from core.store.databricks_api_engine import DatabricksApiEngine
 from datamodel.customer_profile import CustomerProfile
-from datamodel.constants import DEFAULT_USER_ID
+from datamodel.constants import DEFAULT_PLATFORM_USER_ID
 from store.customer_data_retriever import CustomerDataRetriever
 from utils.load_css_file import local_css_file
 from utils.query_params import QueryParams, manage_query_params
