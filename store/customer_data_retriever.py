@@ -13,38 +13,38 @@ class CustomerDataRetriever(BaseModel):
         hostName=st.secrets["DATABRICKS_HOST"], password=st.secrets["DATABRICKS_TOKEN"]
     )
 
-    customersGoldPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/gold/customers_coalesced"
-    userIdsRangesPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/lookups/userids_ranges"
+    # customersGoldPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/gold/customers_coalesced"
+    userPlatformIdsRangesPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/lookups/userplatformids_ranges"
     customersSplitsPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/gold/customers_splits"
 
     @staticmethod
-    def load_userids_ranges() -> pd.DataFrame:
-        dfUserIdsRanges = CustomerDataRetriever.dbEngine.read_coalesced_parquet_file(
-            folderPathDbfs=CustomerDataRetriever.userIdsRangesPathDbfs
+    def load_userplatformids_ranges() -> pd.DataFrame:
+        dfUserPlatformIdsRanges = CustomerDataRetriever.dbEngine.read_coalesced_parquet_file(
+            folderPathDbfs=CustomerDataRetriever.userPlatformIdsRangesPathDbfs
         )
-        return dfUserIdsRanges
+        return dfUserPlatformIdsRanges
 
     @staticmethod
-    def load_customer_data(userId: str) -> pd.DataFrame:
+    def load_customer_data(userPlatformId: str) -> pd.DataFrame:
 
         # load table with current ranges of userId
-        dfUserIdsRanges = CustomerDataRetriever.load_userids_ranges()
+        dfUserPlatformIdsRanges = CustomerDataRetriever.load_userplatformids_ranges()
 
-        userIdsFrom = dfUserIdsRanges['UserIdFrom'].tolist()
-        userIdsTo = dfUserIdsRanges['UserIdTo'].tolist()
+        userPlatformIdsFrom = dfUserPlatformIdsRanges['UserPlatformIdFrom'].tolist()
+        userPlatformIdsTo = dfUserPlatformIdsRanges['UserPlatformIdTo'].tolist()
 
         rangeIndex = -1
 
         # find range of userId
-        for i in range(0, len(userIdsFrom)):
-            if (int(userId) >= userIdsFrom[i]) and (int(userId) < userIdsTo[i]):
+        for i in range(0, len(userPlatformIdsFrom)):
+            if (int(userPlatformId) >= userPlatformIdsFrom[i]) and (int(userPlatformId) < userPlatformIdsTo[i]):
                 rangeIndex = i
                 break
 
         if rangeIndex == -1:
-            raise ValueError("UserId not in any range of UserIdsSplits")
+            raise ValueError("UserId not in any range of UserPlatformIdsSplits")
 
-        customersSplitsTableName = f"{CustomerDataRetriever.customersSplitsPathDbfs}/{userIdsFrom[rangeIndex]}_{userIdsTo[rangeIndex]}"
+        customersSplitsTableName = f"{CustomerDataRetriever.customersSplitsPathDbfs}/{userPlatformIdsFrom[rangeIndex]}_{userPlatformIdsTo[rangeIndex]}"
 
         # load the corresponding customers split table that contains info about userId of customer
         dfCustomers = CustomerDataRetriever.dbEngine.read_coalesced_parquet_file(
@@ -52,7 +52,7 @@ class CustomerDataRetriever(BaseModel):
         )
 
         # filter customers split table to get customer data
-        dfUser = dfCustomers[dfCustomers[Columns.CustomerData.USER_ID] == int(userId)]
+        dfUser = dfCustomers[dfCustomers[Columns.CustomerData.PLATFORM_USER_ID] == int(userPlatformId)]
         return dfUser
 
 
@@ -74,3 +74,4 @@ class CustomerDataRetriever(BaseModel):
     # def get_user_data_from_platform_id(dfCustomers: pd.DataFrame, platformUserId: str) -> pd.DataFrame:
     #     dfUser = dfCustomers[dfCustomers[Columns.CustomerData.PLATFORM_USER_ID] == str(platformUserId)]
     #     return dfUser
+

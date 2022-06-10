@@ -28,9 +28,9 @@ local_css_file("style.css")
 
 # manage query parameters
 queryParams = manage_query_params()
-# userId = queryParams[QueryParams.USER_ID][0]
+# userPlatformId = queryParams[QueryParams.PLATFORM_USER_ID][0]
 
-userId = 0
+userPlatformId = 0
 
 # layout changes
 remove_whitespace_top()
@@ -58,32 +58,34 @@ st.title("Customer Profile")
 
 form = st.form(key="customer_profile")
 
-col1, col2 = form.columns([1, 5])
+# col1, col2 = form.columns([1, 5])
+#
+# userIdType = col1.radio(
+#      label="ID Type:",
+#      options=('User ID', 'Platform ID')
+# )
 
-userIdType = col1.radio(
-     label="ID Type:",
-     options=('User ID', 'Platform ID')
-)
-
-userId = col2.text_input(label="ID:", value=userId)
+userPlatformId = form.text_input(label="User Platform ID:", value=userPlatformId)
 
 getProfileButton = form.form_submit_button(label="Get Profile")
 
 # losing = 330677 (413316)
 # winning = 900563 (1004623)
-if getProfileButton or (userId != DEFAULT_USER_ID):
+if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
-    if userIdType == 'User ID':
-        dfCustomer = CustomerDataRetriever.load_customer_data(userId=userId)
-    elif userIdType == 'Platform ID':
-        # dfCustomer = CustomerDataRetriever.get_user_data_from_platform_id(dfCustomers=dfCustomers, platformUserId=userId)
-        dfCustomer = None
-        st.text('W.I.P.')
-        st.stop()
-    else:
-        dfCustomer = None
-        st.warning('Please pick a valid ID type.')
-        st.stop()
+    # if userIdType == 'User ID':
+    #     # dfCustomer = CustomerDataRetriever.load_customer_data(userId=userId)
+    #     dfCustomer = None
+    #     st.text('W.I.P.')
+    #     st.stop()
+    # elif userIdType == 'Platform ID':
+    #     dfCustomer = CustomerDataRetriever.load_customer_data(userPlatformId=userPlatformId)
+    # else:
+    #     dfCustomer = None
+    #     st.warning('Please pick a valid ID type (Platform ID).')
+    #     st.stop()
+
+    dfCustomer = CustomerDataRetriever.load_customer_data(userPlatformId=userPlatformId)
 
     if dfCustomer.empty:
         st.error('User Not Found.')

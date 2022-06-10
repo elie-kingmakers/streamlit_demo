@@ -5,11 +5,11 @@ class Columns(Enum):
     @skip
     class CouponData(str, Enum):
         # from raw layer
-        USER_ID = "UserId"
+        USER_ID = "IDUser"
         CLIENT_IP = "ClientIP"
 
-        SELECTION_ID = "SelectionId"
-        COUPON_ID = "CouponId"
+        SELECTION_ID = "IDSelection"
+        COUPON_ID = "IDCoupon"
         COUPON_CODE = "CouponCode"
         STAKE = "Stake"
         ODD_VALUE = "OddValue"
@@ -26,8 +26,8 @@ class Columns(Enum):
         SETTLEMENT_EXCHANGE_RATE = "SettlementExchangeRate"
         COUPON_DATE_KEY_UTC = "CouponDateKeyUTC"
         SETTLEMENT_DATE_KEY_UTC = "SettlementDateKeyUTC"
-        COUPON_TYPE_ID = "CouponTypeId"
-        SETTLEMENT_STATUS_ID = "SettlementStatusId"
+        COUPON_TYPE_ID = "IDCouponType"
+        SETTLEMENT_STATUS_ID = "IDSettlementStatus"
 
         # added in bronze layer
         NUMBER_OF_RELEVANT_SELECTIONS = "NumberOfRelevantSelections"
@@ -51,14 +51,14 @@ class Columns(Enum):
     @skip
     class CustomerData(str, Enum):
         # from raw layer
-        USER_ID = "UserId"
+        USER_ID = "IDUser"
         CLIENT_IP = "ClientIP"
 
         # from silver layer
-        PLATFORM_USER_ID = "PlatformUserId"
-        USER_TYPE_ID = "UserTypeId"
+        PLATFORM_USER_ID = "IDUserPlatform"
+        USER_TYPE_ID = "IDUserType"
         USER_TYPE_NAME = "UserTypeName"
-        USER_STATUS_ID = "UserStatusId"
+        USER_STATUS_ID = "IDUserStatus"
         USER_STATUS_NAME = "UserStatusName"
         FIRST_NAME = "FirstName"
         LAST_NAME = "LastName"
@@ -66,15 +66,15 @@ class Columns(Enum):
         EMAIL = "Email"
         GENDER = "Gender"
         BIRTH_DATE_KEY_UTC = "BirthDateKeyUTC"
-        USER_CURRENCY_ID = "UserCurrencyId"
-        USER_CURRENCY_NAME = "UserCurrencyName"
+        USER_CURRENCY_ID = "IDCurrency"
+        USER_CURRENCY_NAME = "CurrencyName"
         SUBSCRIPTION_DATE_KEY_UTC = "SubscriptionDateKeyUTC"
-        VERIFICATION_LEVEL_ID = "VerificationLevelId"
+        VERIFICATION_LEVEL_ID = "IDVerificationLevel"
         VERIFICATION_LEVEL_NAME = "VerificationLevelName"
         STREET_ADDRESS = "StreetAddress"
         TOWN = "Town"
         ZIP_CODE = "ZipCode"
-        COUNTRY_ID = "CountryId"
+        COUNTRY_ID = "IDCountry"
         COUNTRY_NAME = "CountryName"
         PHONE = "Phone"
         MOBILE_PHONE = "MobilePhone"
