@@ -187,9 +187,9 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.averageSelectionStake, inBold=True, column=col4)
 
     col1.write("**Avg. Selection Return**")
-    show_data(value=customerProfile.averageSelectionReturnPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.averageSelectionReturnLive, inBold=True, column=col3)
-    show_data(value=customerProfile.averageSelectionReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.averageSelectionReturnPrematch, prefix="-", inBold=True, column=col2)
+    show_data(value=customerProfile.averageSelectionReturnLive, prefix="-", inBold=True, column=col3)
+    show_data(value=customerProfile.averageSelectionReturn, prefix="-", inBold=True, column=col4)
 
     col1.write("**Total Nb. of Selections**")
     show_data(value=customerProfile.totalNumberOfSelectionsPrematch, inBold=True, column=col2)
@@ -202,9 +202,9 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.averageCouponNumberOfSelections, inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Potential Payout**")
-    show_data(value=-customerProfile.averageCouponPotentialPayoutPrematch, inBold=True, column=col2)
-    show_data(value=-customerProfile.averageCouponPotentialPayoutLive, inBold=True, column=col3)
-    show_data(value=-customerProfile.averageCouponPotentialPayout, inBold=True, column=col4)
+    show_data(value=customerProfile.averageCouponPotentialPayoutPrematch, prefix="-", inBold=True, column=col2)
+    show_data(value=customerProfile.averageCouponPotentialPayoutLive, prefix="-", inBold=True, column=col3)
+    show_data(value=customerProfile.averageCouponPotentialPayout, prefix="-", inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Stake**")
     show_data(value=customerProfile.averageCouponStakePrematch, inBold=True, column=col2)
@@ -212,9 +212,9 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.averageCouponStake, inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Return**")
-    show_data(value=-customerProfile.averageCouponReturnPrematch, inBold=True, column=col2)
-    show_data(value=-customerProfile.averageCouponReturnLive, inBold=True, column=col3)
-    show_data(value=-customerProfile.averageCouponReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.averageCouponReturnPrematch, prefix="-", inBold=True, column=col2)
+    show_data(value=customerProfile.averageCouponReturnLive, prefix="-", inBold=True, column=col3)
+    show_data(value=customerProfile.averageCouponReturn, prefix="-", inBold=True, column=col4)
 
     col1.write("**Total Stake**")
     show_data(value=customerProfile.totalStakePrematch, inBold=True, column=col2)
@@ -222,9 +222,9 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.totalStake, inBold=True, column=col4)
 
     col1.write("**Total Return**")
-    show_data(value=-customerProfile.totalReturnPrematch, inBold=True, column=col2)
-    show_data(value=-customerProfile.totalReturnLive, inBold=True, column=col3)
-    show_data(value=-customerProfile.totalReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.totalReturnPrematch, prefix="-", inBold=True, column=col2)
+    show_data(value=customerProfile.totalReturnLive, prefix="-", inBold=True, column=col3)
+    show_data(value=customerProfile.totalReturn, prefix="-", inBold=True, column=col4)
 
     col1.write("**Net Earnings**")
     show_data(value=-customerProfile.netEarningsPrematch, inBold=True, column=col2)
@@ -282,14 +282,14 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.cashoutTotalStake, inBold=True, column=col4)
 
     col1.write("**Cashout Total Return**")
-    show_data(value=-customerProfile.cashoutTotalReturnPrematch, inBold=True, column=col2)
-    show_data(value=-customerProfile.cashoutTotalReturnLive, inBold=True, column=col3)
-    show_data(value=-customerProfile.cashoutTotalReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.cashoutTotalReturnPrematch, prefix="-", inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutTotalReturnLive, prefix="-", inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutTotalReturn, prefix="-", inBold=True, column=col4)
 
     col1.write("**Cashout Potential Payout**")
-    show_data(value=-customerProfile.cashoutPotentialPayoutPrematch, inBold=True, column=col2)
-    show_data(value=-customerProfile.cashoutPotentialPayoutLive, inBold=True, column=col3)
-    show_data(value=-customerProfile.cashoutPotentialPayout, inBold=True, column=col4)
+    show_data(value=customerProfile.cashoutPotentialPayoutPrematch, prefix="-", inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutPotentialPayoutLive, prefix="-", inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutPotentialPayout, prefix="-", inBold=True, column=col4)
 
     col1.write("**Cashout Net Earnings**")
     show_data(value=-customerProfile.cashoutNetEarningsPrematch, inBold=True, column=col2)
