@@ -13,9 +13,9 @@ class CustomerDataRetriever(BaseModel):
         hostName=st.secrets["DATABRICKS_HOST"], password=st.secrets["DATABRICKS_TOKEN"]
     )
 
-    # customersGoldPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/gold/customers_coalesced"
-    userPlatformIdsRangesPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/lookups/userplatformids_ranges"
-    customersSplitsPathDbfs: ClassVar[str] = "dbfs:/mnt/datascience/customer_profiling/gold/customers_splits"
+    # customersGoldPathDbfs: ClassVar[str] = "dbfs:/mnt/dsworkspace/customer_profiling/gold/customers_coalesced"
+    userPlatformIdsRangesPathDbfs: ClassVar[str] = "dbfs:/mnt/dsworkspace/customer_profiling/lookups/userplatformids_ranges"
+    customersSplitsPathDbfs: ClassVar[str] = "dbfs:/mnt/dsworkspace/customer_profiling/gold/customers_splits"
 
     @staticmethod
     def load_userplatformids_ranges() -> pd.DataFrame:
