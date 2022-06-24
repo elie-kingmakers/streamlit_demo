@@ -20,10 +20,10 @@ class CustomerProfile(BaseModel):
     username: str = ""
     email: str = ""
     gender: str = ""
-    birthDateKeyUTC: int = 0
+    birthDateKey: int = 0
     userCurrencyId: int = 0
     userCurrencyName: str = ""
-    subscriptionDateKeyUTC: int = 0
+    subscriptionDateKey: int = 0
     verificationLevelId: int = 0
     verificationLevelName: str = ""
     streetAddress: str = ""
@@ -83,7 +83,7 @@ class CustomerProfile(BaseModel):
     totalReturnPrematch: float = 0.0
     totalReturnLive: float = 0.0
     totalReturn: float = 0.0
-    mostRecentCouponDateKeyUTC: int = 0
+    mostRecentCouponDateKey: int = 0
 
     netEarningsPrematch: float = 0.0
     netEarningsLive: float = 0.0
@@ -128,7 +128,7 @@ class CustomerProfile(BaseModel):
 
     @property
     def age(self) -> int:
-        birthDate = datetime.strptime(str(self.birthDateKeyUTC), "%Y%m%d")
+        birthDate = datetime.strptime(str(self.birthDateKey), "%Y%m%d")
         today = datetime.today()
         return int((today - birthDate).days / 365.242199)
 
@@ -149,10 +149,10 @@ class CustomerProfile(BaseModel):
         customerProfile.username = get_value(dfCustomer.iloc[0][Columns.CustomerData.USERNAME], "str")
         customerProfile.email = get_value(dfCustomer.iloc[0][Columns.CustomerData.EMAIL], "str")
         customerProfile.gender = get_value(dfCustomer.iloc[0][Columns.CustomerData.GENDER], "str")
-        customerProfile.birthDateKeyUTC = get_value(dfCustomer.iloc[0][Columns.CustomerData.BIRTH_DATE_KEY_UTC], "int")
+        customerProfile.birthDateKey = get_value(dfCustomer.iloc[0][Columns.CustomerData.BIRTH_DATE_KEY_], "int")
         customerProfile.userCurrencyId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_ID], "int")
         customerProfile.userCurrencyName = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_NAME], "str")
-        customerProfile.subscriptionDateKeyUTC = get_value(dfCustomer.iloc[0][Columns.CustomerData.SUBSCRIPTION_DATE_KEY_UTC], "int")
+        customerProfile.subscriptionDateKey = get_value(dfCustomer.iloc[0][Columns.CustomerData.SUBSCRIPTION_DATE_KEY], "int")
         customerProfile.verificationLevelId = get_value(dfCustomer.iloc[0][Columns.CustomerData.VERIFICATION_LEVEL_ID], "int")
         customerProfile.verificationLevelName = get_value(dfCustomer.iloc[0][Columns.CustomerData.VERIFICATION_LEVEL_NAME], "str")
         customerProfile.streetAddress = get_value(dfCustomer.iloc[0][Columns.CustomerData.STREET_ADDRESS], "str")
@@ -212,7 +212,7 @@ class CustomerProfile(BaseModel):
         customerProfile.totalReturnPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN_PREMATCH], "float")
         customerProfile.totalReturnLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN_LIVE], "float")
         customerProfile.totalReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOTAL_RETURN], "float")
-        customerProfile.mostRecentCouponDateKeyUTC = get_value(dfCustomer.iloc[0][Columns.CustomerData.MOST_RECENT_COUPON_DATE_KEY_UTC], "int")
+        customerProfile.mostRecentCouponDateKey = get_value(dfCustomer.iloc[0][Columns.CustomerData.MOST_RECENT_COUPON_DATE_KEY], "int")
 
         customerProfile.netEarningsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS_PREMATCH], "float")
         customerProfile.netEarningsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.NET_EARNINGS_LIVE], "float")

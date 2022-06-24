@@ -47,8 +47,8 @@ class DeltaLakeRetriever:
             .select(
                 "IDCoupon",
                 "CouponCode",
-                "CouponDateKeyUTC",
-                "SettlementDateKeyUTC",
+                "CouponDateKey",
+                "SettlementDateKey",
                 "Stake",
                 "MaxWin",
                 "MinWin",
@@ -78,16 +78,16 @@ class DeltaLakeRetriever:
         )
 
         dfCoupons = dfCoupons\
-            .filter(dfCoupons["SettlementDateKeyUTC"] >= int(startDate.strftime("%Y%m%d")))\
-            .filter(dfCoupons["SettlementDateKeyUTC"] <= int(endDate.strftime("%Y%m%d")))
+            .filter(dfCoupons["SettlementDateKey"] >= int(startDate.strftime("%Y%m%d")))\
+            .filter(dfCoupons["SettlementDateKey"] <= int(endDate.strftime("%Y%m%d")))
 
         dfBetOdds = (
             self.deltaLakeReader.read_table("db_bronze_sportsbook.bets_betodds")
         )
 
         dfBetOdds = dfBetOdds \
-            .filter(dfBetOdds["SettlementDateKeyUTC"] >= int(startDate.strftime("%Y%m%d"))) \
-            .filter(dfBetOdds["SettlementDateKeyUTC"] <= int(endDate.strftime("%Y%m%d")))
+            .filter(dfBetOdds["SettlementDateKey"] >= int(startDate.strftime("%Y%m%d"))) \
+            .filter(dfBetOdds["SettlementDateKey"] <= int(endDate.strftime("%Y%m%d")))
 
         dfBetOdds = dfBetOdds.select(
             "IDCoupon",
@@ -121,8 +121,8 @@ class DeltaLakeRetriever:
         dfUsers = self.deltaLakeReader.read_table("db_bronze_sportsbook.accounts_users")
 
         dfUsers = dfUsers \
-            .withColumn("BirthDateKeyUTC", f.date_format(f.col("BirthDate"), "yyyyMMdd").cast(LongType())) \
-            .withColumn("SubscriptionDateKeyUTC", f.date_format(f.col("SubscriptionDate"), "yyyyMMdd").cast(LongType()))
+            .withColumn("BirthDateKey", f.date_format(f.col("BirthDate"), "yyyyMMdd").cast(LongType())) \
+            .withColumn("SubscriptionDateKey", f.date_format(f.col("SubscriptionDate"), "yyyyMMdd").cast(LongType()))
 
         dfChannelUsers = (
             self.deltaLakeReader.read_table("db_bronze_sportsbook.channelmanagement_channelusers")
@@ -179,10 +179,10 @@ class DeltaLakeRetriever:
             "UserName",
             "Email",
             "Gender",
-            "BirthDateKeyUTC",
+            "BirthDateKey",
             "IDCurrency",
             "CurrencyName",
-            "SubscriptionDateKeyUTC",
+            "SubscriptionDateKey",
             "IDVerificationLevel",
             "VerificationLevelName",
             "StreetAddress",
@@ -198,15 +198,15 @@ class DeltaLakeRetriever:
         dfUsersAccounts = self.dataLakeReader.read_path(DataLakePath.Tps.USER_ACCOUNTS)
 
         dfAvailableBalance = dfUsersAccounts.withColumn(
-            "UpdatedOnKeyUTC", f.date_format(f.col("LastUpdatedOnUTC"), "yyyyMMddhhmmss").cast(LongType())
+            "UpdatedOnKey", f.date_format(f.col("LastUpdatedOn"), "yyyyMMddhhmmss").cast(LongType())
         )
 
         windowUserId = Window.partitionBy("UserId")
 
         dfAvailableBalance = (
-            dfAvailableBalance.withColumn("MaxUpdatedOnKeyUTC", f.max("UpdatedOnKeyUTC").over(windowUserId))
-            .where(f.col("UpdatedOnKeyUTC") == f.col("MaxUpdatedOnKeyUTC"))
-            .drop("MaxUpdatedOnKeyUTC")
+            dfAvailableBalance.withColumn("MaxUpdatedOnKey", f.max("UpdatedOnKey").over(windowUserId))
+            .where(f.col("UpdatedOnKey") == f.col("MaxUpdatedOnKey"))
+            .drop("MaxUpdatedOnKey")
         )
 
         dfAvailableBalance = dfAvailableBalance.groupBy("UserId").agg(

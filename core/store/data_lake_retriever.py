@@ -44,8 +44,8 @@ class DataLakeRetriever:
             .select(
                 "CouponId",
                 "CouponCode",
-                "CouponDateKeyUTC",
-                "SettlementDateKeyUTC",
+                "CouponDateKey",
+                "SettlementDateKey",
                 "Stake",
                 "MaxWin",
                 "MinWin",
@@ -74,8 +74,8 @@ class DataLakeRetriever:
             .dropDuplicates()
         )
 
-        dfCoupons = dfCoupons.filter(dfCoupons["SettlementDateKeyUTC"] >= int(startDate.strftime("%Y%m%d"))).filter(
-            dfCoupons["SettlementDateKeyUTC"] <= int(endDate.strftime("%Y%m%d"))
+        dfCoupons = dfCoupons.filter(dfCoupons["SettlementDateKey"] >= int(startDate.strftime("%Y%m%d"))).filter(
+            dfCoupons["SettlementDateKey"] <= int(endDate.strftime("%Y%m%d"))
         )
 
         betOddsPath = DataLakePath.Raptor.BET_ODDS.loose_filter_by_date(startDate=startDate, endDate=endDate)
@@ -112,8 +112,8 @@ class DataLakeRetriever:
         )
 
         dfUsers = dfUsers.withColumn(
-            "BirthDateKeyUTC", f.date_format(f.col("BirthDate"), "yyyyMMdd").cast(LongType())
-        ).withColumn("SubscriptionDateKeyUTC", f.date_format(f.col("SubscriptionDate"), "yyyyMMdd").cast(LongType()))
+            "BirthDateKey", f.date_format(f.col("BirthDate"), "yyyyMMdd").cast(LongType())
+        ).withColumn("SubscriptionDateKey", f.date_format(f.col("SubscriptionDate"), "yyyyMMdd").cast(LongType()))
 
         dfChannelUsers = (
             self.dataLakeReader.read_path(DataLakePath.Raptor.CHANNEL_USERS)
@@ -179,10 +179,10 @@ class DataLakeRetriever:
             "UserName",
             "Email",
             "Gender",
-            "BirthDateKeyUTC",
+            "BirthDateKey",
             "UserCurrencyId",
             "UserCurrencyName",
-            "SubscriptionDateKeyUTC",
+            "SubscriptionDateKey",
             "VerificationLevelId",
             "VerificationLevelName",
             "StreetAddress",
@@ -198,15 +198,15 @@ class DataLakeRetriever:
         dfUsersAccounts = self.dataLakeReader.read_path(DataLakePath.Tps.USER_ACCOUNTS)
 
         dfAvailableBalance = dfUsersAccounts.withColumn(
-            "UpdatedOnKeyUTC", f.date_format(f.col("LastUpdatedOnUTC"), "yyyyMMddhhmmss").cast(LongType())
+            "UpdatedOnKey", f.date_format(f.col("LastUpdatedOn"), "yyyyMMddhhmmss").cast(LongType())
         )
 
         windowUserId = Window.partitionBy("UserId")
 
         dfAvailableBalance = (
-            dfAvailableBalance.withColumn("MaxUpdatedOnKeyUTC", f.max("UpdatedOnKeyUTC").over(windowUserId))
-            .where(f.col("UpdatedOnKeyUTC") == f.col("MaxUpdatedOnKeyUTC"))
-            .drop("MaxUpdatedOnKeyUTC")
+            dfAvailableBalance.withColumn("MaxUpdatedOnKey", f.max("UpdatedOnKey").over(windowUserId))
+            .where(f.col("UpdatedOnKey") == f.col("MaxUpdatedOnKey"))
+            .drop("MaxUpdatedOnKey")
         )
 
         dfAvailableBalance = dfAvailableBalance.groupBy("UserId").agg(

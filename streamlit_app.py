@@ -118,7 +118,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
     show_data(
         label="Subscription Date",
-        value=get_date_string(dateKey=customerProfile.subscriptionDateKeyUTC),
+        value=get_date_string(dateKey=customerProfile.subscriptionDateKey),
         inBold=True,
         column=col1,
     )
@@ -127,7 +127,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
     show_data(label="Gender", value=get_gender_string(gender=customerProfile.gender), inBold=True, column=col1)
     show_data(
-        label="Birth Date", value=get_date_string(dateKey=customerProfile.birthDateKeyUTC), inBold=True, column=col2
+        label="Birth Date", value=get_date_string(dateKey=customerProfile.birthDateKey), inBold=True, column=col2
     )
     show_data(label="Age", value=customerProfile.age, inBold=True, column=col3)
 
@@ -147,7 +147,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     col1.metric(label="Available Balance", value=customerProfile.availableBalanceTotal)
     col2.metric(label="Total Number of Coupons", value=customerProfile.totalNumberOfCoupons)
     col3.metric(
-        label="Most Recent Coupon Date", value=get_date_string(dateKey=customerProfile.mostRecentCouponDateKeyUTC)
+        label="Most Recent Coupon Date", value=get_date_string(dateKey=customerProfile.mostRecentCouponDateKey)
     )
 
     col1.metric(label="Highest Coupon Stake", value="{:.2f}".format(customerProfile.highestCouponStake))
