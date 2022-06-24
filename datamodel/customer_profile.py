@@ -149,7 +149,7 @@ class CustomerProfile(BaseModel):
         customerProfile.username = get_value(dfCustomer.iloc[0][Columns.CustomerData.USERNAME], "str")
         customerProfile.email = get_value(dfCustomer.iloc[0][Columns.CustomerData.EMAIL], "str")
         customerProfile.gender = get_value(dfCustomer.iloc[0][Columns.CustomerData.GENDER], "str")
-        customerProfile.birthDateKey = get_value(dfCustomer.iloc[0][Columns.CustomerData.BIRTH_DATE_KEY_], "int")
+        customerProfile.birthDateKey = get_value(dfCustomer.iloc[0][Columns.CustomerData.BIRTH_DATE_KEY], "int")
         customerProfile.userCurrencyId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_ID], "int")
         customerProfile.userCurrencyName = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_CURRENCY_NAME], "str")
         customerProfile.subscriptionDateKey = get_value(dfCustomer.iloc[0][Columns.CustomerData.SUBSCRIPTION_DATE_KEY], "int")
