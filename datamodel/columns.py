@@ -27,6 +27,7 @@ class Columns(Enum):
         COUPON_DATE_KEY = "CouponDateKey"
         SETTLEMENT_DATE_KEY = "SettlementDateKey"
         COUPON_TYPE_ID = "IDCouponType"
+        COUPON_STATUS_ID = "IDCouponStatus"
         SETTLEMENT_STATUS_ID = "IDSettlementStatus"
 
         # added in bronze layer
@@ -79,7 +80,9 @@ class Columns(Enum):
         PHONE = "Phone"
         MOBILE_PHONE = "MobilePhone"
 
+        AVAILABLE_BALANCE_TOTAL_LOCAL = "AvailableBalanceTotalLocal"
         AVAILABLE_BALANCE_TOTAL = "AvailableBalanceTotal"
+        UNSETTLED_STAKE = "UnsettledStake"
 
         # added in gold layer
         AVERAGE_SELECTION_ODDS_PREMATCH = "AverageSelectionOddsPrematch"

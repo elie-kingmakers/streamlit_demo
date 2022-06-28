@@ -153,6 +153,11 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     col1.metric(label="Highest Coupon Stake", value="{:.2f}".format(customerProfile.highestCouponStake))
     col2.metric(label="Highest Coupon Return", value="{:.2f}".format(-customerProfile.highestCouponReturn))
 
+    if customerProfile.unsettledStake == "N/A":
+        col3.metric(label="Unsettled Stake", value=0)
+    else:
+        col3.metric(label="Unsettled Stake", value="{:.2f}".format(customerProfile.unsettledStake))
+
     # col1.metric(label='Avg. Probability Estimate KC', value='{:.2f}'.format(customerProfile.averageProbabilityEstimateKellyCriterion*100.0))
     # col2.metric(label='Avg. Bet Score', value='{:.2f}'.format(customerProfile.averageBetScore))
 

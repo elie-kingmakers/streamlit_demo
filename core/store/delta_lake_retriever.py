@@ -4,17 +4,12 @@ from pyspark.sql.types import StringType, LongType, DoubleType
 from pyspark.sql import Window
 from datetime import datetime
 
-from core.datamodel.data_lake_path import DataLakePath
-from core.store.data_lake_reader import DataLakeReader
-
-# from core.datamodel.delta_lake_path import DeltaLakePath
 from core.store.delta_lake_reader import DeltaLakeReader
 
 
 class DeltaLakeRetriever:
-    def __init__(self, deltaLakeReader: DeltaLakeReader, dataLakeReader: DataLakeReader):
+    def __init__(self, deltaLakeReader: DeltaLakeReader):
         self.deltaLakeReader = deltaLakeReader
-        self.dataLakeReader = dataLakeReader
 
     def get_selections_view(self) -> pyspark.sql.dataframe.DataFrame:
         dfSelections = (
@@ -22,7 +17,7 @@ class DeltaLakeRetriever:
             .select(
                 "IDSelection",
                 "IDMarket",
-                "IDSelectionStatus",
+                "SelectionStatusId",
                 "IDMarketType",
                 "IDSelectionType",
                 "SelectionSpread",
@@ -78,16 +73,16 @@ class DeltaLakeRetriever:
         )
 
         dfCoupons = dfCoupons\
-            .filter(dfCoupons["SettlementDateKey"] >= int(startDate.strftime("%Y%m%d")))\
-            .filter(dfCoupons["SettlementDateKey"] <= int(endDate.strftime("%Y%m%d")))
+            .filter(dfCoupons["CouponDateKey"] >= startDate.strftime("%Y%m%d"))\
+            .filter(dfCoupons["CouponDateKey"] <= endDate.strftime("%Y%m%d"))
 
         dfBetOdds = (
             self.deltaLakeReader.read_table("db_bronze_sportsbook.bets_betodds")
         )
 
-        dfBetOdds = dfBetOdds \
-            .filter(dfBetOdds["SettlementDateKey"] >= int(startDate.strftime("%Y%m%d"))) \
-            .filter(dfBetOdds["SettlementDateKey"] <= int(endDate.strftime("%Y%m%d")))
+        # dfBetOdds = dfBetOdds \
+        #     .filter(dfBetOdds["SettlementDateKey"] >= int(startDate.strftime("%Y%m%d"))) \
+        #     .filter(dfBetOdds["SettlementDateKey"] <= int(endDate.strftime("%Y%m%d")))
 
         dfBetOdds = dfBetOdds.select(
             "IDCoupon",
@@ -195,7 +190,7 @@ class DeltaLakeRetriever:
         )
 
     def get_users_finance_data(self) -> pyspark.sql.dataframe.DataFrame:
-        dfUsersAccounts = self.dataLakeReader.read_path(DataLakePath.Tps.USER_ACCOUNTS)
+        dfUsersAccounts = self.deltaLakeReader.read_table("db_bronze_tps.finance_account")
 
         dfAvailableBalance = dfUsersAccounts.withColumn(
             "UpdatedOnKey", f.date_format(f.col("LastUpdatedOn"), "yyyyMMddhhmmss").cast(LongType())
@@ -209,15 +204,38 @@ class DeltaLakeRetriever:
             .drop("MaxUpdatedOnKey")
         )
 
+        # sometimes a user's balance is updated multiple times in the same second
         dfAvailableBalance = dfAvailableBalance.groupBy("UserId").agg(
-            f.sum("AvailableBalance").alias("AvailableBalanceTotal")
+            f.sum("AvailableBalance").alias("AvailableBalanceTotalLocal")
         )
 
         dfUsersFinance = dfAvailableBalance.withColumn("UserId", f.col("UserId").cast(StringType()))
         dfUsersFinance = dfUsersFinance.withColumn(
-            "AvailableBalanceTotal",
-            f.col("AvailableBalanceTotal").cast(DoubleType())
+            "AvailableBalanceTotalLocal",
+            f.col("AvailableBalanceTotalLocal").cast(DoubleType())
         )
+
         dfUsersFinance = dfUsersFinance.withColumnRenamed(existing="UserId", new="IDUserPlatform")
 
-        return dfUsersFinance
+        dfUsers = self.deltaLakeReader.read_table("db_bronze_sportsbook.accounts_users")
+        dfCurrenciesLookup = self.deltaLakeReader.read_table("db_bronze_sportsbook.settings_currencies")
+        dfChannelUsers = (
+            self.deltaLakeReader.read_table("db_bronze_sportsbook.channelmanagement_channelusers")
+            .withColumnRenamed(existing="ExternalIDUser", new="IDUserPlatform")
+        )
+
+        dfUsers = dfUsers.join(other=dfChannelUsers, on=["IDUser"], how="left")
+        dfUsers = dfUsers.join(other=dfCurrenciesLookup, on=["IDCurrency"], how="left")
+
+        dfUsersFinance = dfUsersFinance.join(other=dfUsers, on=["IDUserPlatform"], how="left")
+
+        dfUsersFinance = dfUsersFinance.withColumn(
+            "AvailableBalanceTotal",
+            f.col("AvailableBalanceTotalLocal") * f.col("Conversion")
+        )
+
+        return dfUsersFinance.select(
+            "IDUserPlatform",
+            "AvailableBalanceTotalLocal",
+            "AvailableBalanceTotal"
+        )

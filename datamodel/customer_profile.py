@@ -34,7 +34,9 @@ class CustomerProfile(BaseModel):
     phone: str = ""
     mobilePhone: str = ""
 
+    availableBalanceTotalLocal: float = 0.0
     availableBalanceTotal: float = 0.0
+    unsettledStake: float = 0.0
 
     averageSelectionOddsPrematch: float = 0.0
     averageSelectionOddsLive: float = 0.0
@@ -163,7 +165,9 @@ class CustomerProfile(BaseModel):
         customerProfile.phone = get_value(dfCustomer.iloc[0][Columns.CustomerData.PHONE], "str")
         customerProfile.mobilePhone = get_value(dfCustomer.iloc[0][Columns.CustomerData.MOBILE_PHONE], "str")
 
+        customerProfile.availableBalanceTotalLocal = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVAILABLE_BALANCE_TOTAL_LOCAL], "float")
         customerProfile.availableBalanceTotal = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVAILABLE_BALANCE_TOTAL], "float")
+        customerProfile.unsettledStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.UNSETTLED_STAKE], "float")
 
         customerProfile.averageSelectionOddsPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS_PREMATCH], "float")
         customerProfile.averageSelectionOddsLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.AVERAGE_SELECTION_ODDS_LIVE], "float")
