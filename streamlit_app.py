@@ -207,9 +207,9 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.averageCouponNumberOfSelections, inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Potential Payout**")
-    show_data(value=customerProfile.averageCouponPotentialPayoutPrematch, negate=True, inBold=True, column=col2)
-    show_data(value=customerProfile.averageCouponPotentialPayoutLive, negate=True, inBold=True, column=col3)
-    show_data(value=customerProfile.averageCouponPotentialPayout, negate=True, inBold=True, column=col4)
+    show_data(value=customerProfile.averageCouponPotentialPayoutPrematch, inBold=True, column=col2)
+    show_data(value=customerProfile.averageCouponPotentialPayoutLive, inBold=True, column=col3)
+    show_data(value=customerProfile.averageCouponPotentialPayout, inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Stake**")
     show_data(value=customerProfile.averageCouponStakePrematch, inBold=True, column=col2)
