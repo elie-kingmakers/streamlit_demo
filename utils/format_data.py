@@ -32,7 +32,11 @@ def get_css_comparison_with_population(userValue: float, populationValue: float)
 
 
 def get_date_string(dateKey: int) -> str:
+    if str(dateKey) == "N/A":
+        return "N/A"
+
     date = datetime.strptime(str(dateKey), "%Y%m%d")
+
     dateString = datetime.strftime(date, "%Y-%m-%d")
     return dateString
 

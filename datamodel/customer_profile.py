@@ -122,6 +122,24 @@ class CustomerProfile(BaseModel):
     cashoutMarginLive: float = 0.0
     cashoutMargin: float = 0.0
 
+    singlesTotalNumberOfCoupons: int = 0
+    singlesPercentageOfTotalNumberOfCoupons: float = 0.0
+    singlesAverageCouponOdds: float = 0.0
+    singlesAverageCouponStake: float = 0.0
+    singlesAverageCouponReturn: float = 0.0
+    singlesTotalStake: float = 0.0
+    singlesPercentageOfTotalStake: float = 0.0
+    singlesTotalReturn: float = 0.0
+    singlesPercentageOfTotalReturn: float = 0.0
+    singlesNetEarnings: float = 0.0
+    singlesPercentageOfNetEarnings: float = 0.0
+    singlesReturnOnStakePercentage: float = 0.0
+    singlesMargin: float = 0.0
+    singlesWinningStatus: int = 0
+    singlesTruePositives: int = 0
+    singlesFalsePositives: int = 0
+    singlesAccuracy: float = 0.0
+
     clusterAverageCouponStake: str = ""
     clusterAccuracy: str = ""
     clusterNumberOfCoupons: str = ""
@@ -130,6 +148,10 @@ class CustomerProfile(BaseModel):
 
     @property
     def age(self) -> int:
+
+        if str(self.birthDateKey) == "N/A":
+            return 0
+
         birthDate = datetime.strptime(str(self.birthDateKey), "%Y%m%d")
         today = datetime.today()
         return int((today - birthDate).days / 365.242199)
@@ -252,6 +274,24 @@ class CustomerProfile(BaseModel):
         customerProfile.cashoutMarginPrematch = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_PREMATCH], "float", 100.0)
         customerProfile.cashoutMarginLive = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN_LIVE], "float", 100.0)
         customerProfile.cashoutMargin = get_value(dfCustomer.iloc[0][Columns.CustomerData.CASHOUT_MARGIN], "float", 100.0)
+
+        customerProfile.singlesTotalNumberOfCoupons = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_TOTAL_NUMBER_OF_COUPONS], "int")
+        customerProfile.singlesPercentageOfTotalNumberOfCoupons = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_PERCENTAGE_OF_TOTAL_NUMBER_OF_COUPONS], "float")
+        customerProfile.singlesAverageCouponOdds = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_AVERAGE_COUPON_ODDS], "float")
+        customerProfile.singlesAverageCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_AVERAGE_COUPON_STAKE], "float")
+        customerProfile.singlesAverageCouponReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_AVERAGE_COUPON_RETURN], "float")
+        customerProfile.singlesTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_TOTAL_STAKE], "float")
+        customerProfile.singlesPercentageOfTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_PERCENTAGE_OF_TOTAL_STAKE], "float")
+        customerProfile.singlesTotalReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_TOTAL_RETURN], "float")
+        customerProfile.singlesPercentageOfTotalReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_PERCENTAGE_OF_TOTAL_RETURN], "float")
+        customerProfile.singlesNetEarnings = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_NET_EARNINGS], "float")
+        customerProfile.singlesPercentageOfNetEarnings = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_PERCENTAGE_OF_NET_EARNINGS], "float")
+        customerProfile.singlesReturnOnStakePercentage = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_RETURN_ON_STAKE_PERCENTAGE], "float")
+        customerProfile.singlesMargin = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_MARGIN], "float", 100.0)
+        customerProfile.singlesWinningStatus = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_WINNING_STATUS], "int")
+        customerProfile.singlesTruePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_TRUE_POSITIVES], "int")
+        customerProfile.singlesFalsePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_FALSE_POSITIVES], "int")
+        customerProfile.singlesAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_ACCURACY], "float")
 
         customerProfile.clusterAverageCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_AVERAGE_COUPON_STAKE], "str")
         customerProfile.clusterAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_ACCURACY], "str")

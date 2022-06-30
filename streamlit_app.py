@@ -3,6 +3,7 @@ import sys
 sys.path.append(".")  # needed for streamlit to find the files
 
 import streamlit as st
+import pandas as pd
 
 # from core.utils.histogram import get_histogram
 # from core.utils.filestore import get_filestore_file_url
@@ -100,6 +101,9 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
     customerProfile = CustomerProfile.from_data(dfCustomer=dfCustomer)
 
+    # ***********************************************************************************************************************
+    # DETAILS
+
     st.subheader("Details")
 
     col1, col2, col3 = st.columns(3)
@@ -139,29 +143,35 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(label="Mobile Phone", value=customerProfile.mobilePhone, inBold=True, column=col2)
     show_data(label="IP Address", value=customerProfile.clientIP, inBold=True, column=col3)
 
+
     # ***********************************************************************************************************************
+    # INFO
+
     st.markdown("""---""")
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric(label="Available Balance", value=customerProfile.availableBalanceTotal)
+    col1.metric(label="Available Balance", value="{:.2f} €".format(customerProfile.availableBalanceTotal))
     col2.metric(label="Total Number of Coupons", value=customerProfile.totalNumberOfCoupons)
     col3.metric(
         label="Most Recent Coupon Date", value=get_date_string(dateKey=customerProfile.mostRecentCouponDateKey)
     )
 
-    col1.metric(label="Highest Coupon Stake", value="{:.2f}".format(customerProfile.highestCouponStake))
-    col2.metric(label="Highest Coupon Return", value="{:.2f}".format(customerProfile.highestCouponReturn))
+    col1.metric(label="Highest Coupon Stake", value="{:.2f} €".format(customerProfile.highestCouponStake))
+    col2.metric(label="Highest Coupon Return", value="{:.2f} €".format(customerProfile.highestCouponReturn))
 
     if customerProfile.unsettledStake == "N/A":
         col3.metric(label="Unsettled Stake", value=0)
     else:
-        col3.metric(label="Unsettled Stake", value="{:.2f}".format(customerProfile.unsettledStake))
+        col3.metric(label="Unsettled Stake", value="{:.2f} €".format(customerProfile.unsettledStake))
 
     # col1.metric(label='Avg. Probability Estimate KC', value='{:.2f}'.format(customerProfile.averageProbabilityEstimateKellyCriterion*100.0))
     # col2.metric(label='Avg. Bet Score', value='{:.2f}'.format(customerProfile.averageBetScore))
 
+
     # ***********************************************************************************************************************
+    # TOTAL COUPON STATS
+
     st.markdown("""---""")
 
     col1, col2, col3, col4, _ = st.columns([2, 1, 1, 1, 2])
@@ -187,14 +197,14 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.averageCouponOdds, inBold=True, column=col4)
 
     col1.write("**Avg. Selection Stake**")
-    show_data(value=customerProfile.averageSelectionStakePrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.averageSelectionStakeLive, inBold=True, column=col3)
-    show_data(value=customerProfile.averageSelectionStake, inBold=True, column=col4)
+    show_data(value=customerProfile.averageSelectionStakePrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.averageSelectionStakeLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.averageSelectionStake, sign="€", inBold=True, column=col4)
 
     col1.write("**Avg. Selection Return**")
-    show_data(value=customerProfile.averageSelectionReturnPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.averageSelectionReturnLive, inBold=True, column=col3)
-    show_data(value=customerProfile.averageSelectionReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.averageSelectionReturnPrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.averageSelectionReturnLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.averageSelectionReturn, sign="€", inBold=True, column=col4)
 
     col1.write("**Total Nb. of Selections**")
     show_data(value=customerProfile.totalNumberOfSelectionsPrematch, inBold=True, column=col2)
@@ -207,34 +217,34 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.averageCouponNumberOfSelections, inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Potential Payout**")
-    show_data(value=customerProfile.averageCouponPotentialPayoutPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.averageCouponPotentialPayoutLive, inBold=True, column=col3)
-    show_data(value=customerProfile.averageCouponPotentialPayout, inBold=True, column=col4)
+    show_data(value=customerProfile.averageCouponPotentialPayoutPrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.averageCouponPotentialPayoutLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.averageCouponPotentialPayout, sign="€", inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Stake**")
-    show_data(value=customerProfile.averageCouponStakePrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.averageCouponStakeLive, inBold=True, column=col3)
-    show_data(value=customerProfile.averageCouponStake, inBold=True, column=col4)
+    show_data(value=customerProfile.averageCouponStakePrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.averageCouponStakeLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.averageCouponStake, sign="€", inBold=True, column=col4)
 
     col1.write("**Avg. Coupon Return**")
-    show_data(value=customerProfile.averageCouponReturnPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.averageCouponReturnLive, inBold=True, column=col3)
-    show_data(value=customerProfile.averageCouponReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.averageCouponReturnPrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.averageCouponReturnLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.averageCouponReturn, sign="€", inBold=True, column=col4)
 
     col1.write("**Total Stake**")
-    show_data(value=customerProfile.totalStakePrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.totalStakeLive, inBold=True, column=col3)
-    show_data(value=customerProfile.totalStake, inBold=True, column=col4)
+    show_data(value=customerProfile.totalStakePrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.totalStakeLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.totalStake, sign="€", inBold=True, column=col4)
 
     col1.write("**Total Return**")
-    show_data(value=customerProfile.totalReturnPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.totalReturnLive, inBold=True, column=col3)
-    show_data(value=customerProfile.totalReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.totalReturnPrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.totalReturnLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.totalReturn, sign="€", inBold=True, column=col4)
 
     col1.write("**Net Earnings**")
-    show_data(value=customerProfile.netEarningsPrematch, negate=True, inBold=True, column=col2)
-    show_data(value=customerProfile.netEarningsLive, negate=True, inBold=True, column=col3)
-    show_data(value=customerProfile.netEarnings, negate=True, inBold=True, column=col4)
+    show_data(value=customerProfile.netEarningsPrematch, sign="€", negate=True, inBold=True, column=col2)
+    show_data(value=customerProfile.netEarningsLive, sign="€", negate=True, inBold=True, column=col3)
+    show_data(value=customerProfile.netEarnings, sign="€", negate=True, inBold=True, column=col4)
 
     col1.write("**Return on Stake Pct.**")
     show_data(value=customerProfile.returnOnStakePercentagePrematch, sign="%", inBold=True, column=col2)
@@ -266,7 +276,10 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.accuracyLive, sign="%", inBold=True, column=col3)
     show_data(value=customerProfile.accuracy, sign="%", inBold=True, column=col4)
 
+
     # ***********************************************************************************************************************
+    # TOTAL CASHOUT STATS
+
     st.markdown("""---""")
 
     col1, col2, col3, col4, _ = st.columns([2, 1, 1, 1, 2])
@@ -282,33 +295,105 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.cashoutTotalNumberOfCoupons, inBold=True, column=col4)
 
     col1.write("**Cashout Total Stake**")
-    show_data(value=customerProfile.cashoutTotalStakePrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.cashoutTotalStakeLive, inBold=True, column=col3)
-    show_data(value=customerProfile.cashoutTotalStake, inBold=True, column=col4)
+    show_data(value=customerProfile.cashoutTotalStakePrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutTotalStakeLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutTotalStake, sign="€", inBold=True, column=col4)
 
     col1.write("**Cashout Total Return**")
-    show_data(value=customerProfile.cashoutTotalReturnPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.cashoutTotalReturnLive, inBold=True, column=col3)
-    show_data(value=customerProfile.cashoutTotalReturn, inBold=True, column=col4)
+    show_data(value=customerProfile.cashoutTotalReturnPrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutTotalReturnLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutTotalReturn, sign="€", inBold=True, column=col4)
 
     col1.write("**Cashout Potential Payout**")
-    show_data(value=customerProfile.cashoutPotentialPayoutPrematch, inBold=True, column=col2)
-    show_data(value=customerProfile.cashoutPotentialPayoutLive, inBold=True, column=col3)
-    show_data(value=customerProfile.cashoutPotentialPayout, inBold=True, column=col4)
+    show_data(value=customerProfile.cashoutPotentialPayoutPrematch, sign="€", inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutPotentialPayoutLive, sign="€", inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutPotentialPayout, sign="€", inBold=True, column=col4)
 
     col1.write("**Cashout Net Earnings**")
-    show_data(value=customerProfile.cashoutNetEarningsPrematch, negate=True, inBold=True, column=col2)
-    show_data(value=customerProfile.cashoutNetEarningsLive, negate=True, inBold=True, column=col3)
-    show_data(value=customerProfile.cashoutNetEarnings, negate=True, inBold=True, column=col4)
+    show_data(value=customerProfile.cashoutNetEarningsPrematch, sign="€", negate=True, inBold=True, column=col2)
+    show_data(value=customerProfile.cashoutNetEarningsLive, sign="€", negate=True, inBold=True, column=col3)
+    show_data(value=customerProfile.cashoutNetEarnings, sign="€", negate=True, inBold=True, column=col4)
 
     col1.write("**Cashout Margin**")
     show_data(value=customerProfile.cashoutMarginPrematch, sign="%", inBold=True, column=col2)
     show_data(value=customerProfile.cashoutMarginLive, sign="%", inBold=True, column=col3)
     show_data(value=customerProfile.cashoutMargin, sign="%", inBold=True, column=col4)
 
-    # show_data(label='', value=customerProfile., inBold=True, column=col2)
-    # show_data(label='', value=customerProfile., inBold=True, column=col3)
-    # show_data(label='', value=customerProfile., inBold=True, column=col4)
+    # ***********************************************************************************************************************
+    # SINGLES STATS
+
+    st.markdown("""---""")
+
+    col1, col2, col3, col4, col5 = st.columns([2, 1, 1, 2, 1])
+
+    insert_blank(column=col1)
+    col2.write("**Total**")
+    insert_blank(column=col3)
+    insert_blank(column=col4)
+    col5.write("**Total**")
+
+    col1.write("**Singles Total Number of Coupons**")
+    show_data(value=customerProfile.singlesTotalNumberOfCoupons, inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Pct. of Total Number of Coupons**")
+    show_data(value=customerProfile.singlesPercentageOfTotalNumberOfCoupons, sign="%", inBold=True, column=col5)
+
+    col1.write("**Singles Avg. Coupon Odds**")
+    show_data(value=customerProfile.singlesAverageCouponOdds, inBold=True, column=col2)
+    insert_blank(column=col3)
+    insert_blank(column=col4)
+    insert_blank(column=col5)
+
+    col1.write("**Singles Avg. Coupon Stake**")
+    show_data(value=customerProfile.singlesAverageCouponStake, sign="€", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Avg. Coupon Return**")
+    show_data(value=customerProfile.singlesAverageCouponReturn, sign="€", inBold=True, column=col5)
+
+    col1.write("**Singles Total Stake**")
+    show_data(value=customerProfile.singlesTotalStake, sign="€", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Pct. of Total Stake**")
+    show_data(value=customerProfile.singlesPercentageOfTotalStake, sign="%", inBold=True, column=col5)
+
+    col1.write("**Singles Total Return**")
+    show_data(value=customerProfile.singlesTotalReturn, sign="€", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Pct. of Total Return**")
+    show_data(value=customerProfile.singlesPercentageOfTotalReturn, sign="%", inBold=True, column=col5)
+
+    col1.write("**Singles Net Earnings**")
+    show_data(value=customerProfile.singlesNetEarnings, sign="€", inBold=True, negate=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Pct. of Net Earnings**")
+    show_data(value=customerProfile.singlesPercentageOfNetEarnings, sign="%", inBold=True, column=col5)
+
+    col1.write("**Singles Return on Stake Pct.**")
+    show_data(value=customerProfile.singlesReturnOnStakePercentage, sign="%", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Margin**")
+    show_data(value=customerProfile.singlesMargin, inBold=True, sign="%", column=col5)
+
+    col1.write("**Singles Nb. of Winning Bets**")
+    show_data(value=customerProfile.singlesTruePositives, inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Nb. of Losing Bets**")
+    show_data(value=customerProfile.singlesFalsePositives, inBold=True, column=col5)
+
+    col1.write("**Singles Accuracy**")
+    show_data(value=customerProfile.singlesAccuracy, sign="%", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Singles Winning Status**")
+    show_data(value=get_winning_status_string(customerProfile.singlesWinningStatus), inBold=True, column=col5)
+
+
+
+
+
+    # ***********************************************************************************************************************
+    # MULTIS STATS
+
+    st.markdown("""---""")
 
 
 
