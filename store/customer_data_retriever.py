@@ -42,7 +42,7 @@ class CustomerDataRetriever(BaseModel):
                 break
 
         if rangeIndex == -1:
-            raise ValueError("UserId not in any range of UserPlatformIdsSplits")
+            raise ValueError("UserPlatformId not in any range of UserPlatformIdsSplits")
 
         customersSplitsTableName = f"{CustomerDataRetriever.customersSplitsPathDbfs}/{userPlatformIdsFrom[rangeIndex]}_{userPlatformIdsTo[rangeIndex]}"
 
@@ -52,7 +52,7 @@ class CustomerDataRetriever(BaseModel):
         )
 
         # filter customers split table to get customer data
-        dfUser = dfCustomers[dfCustomers[Columns.CustomerData.PLATFORM_USER_ID] == int(userPlatformId)]
+        dfUser = dfCustomers[dfCustomers[Columns.CustomerData.USER_PLATFORM_ID] == int(userPlatformId)]
         return dfUser
 
 

@@ -1,17 +1,17 @@
 import streamlit as st
 from enum import Enum
-from datamodel.constants import DEFAULT_PLATFORM_USER_ID
+from datamodel.constants import DEFAULT_USER_PLATFORM_ID
 
 
 class QueryParams(str, Enum):
-    PLATFORM_USER_ID = "IDUserPlatform"
+    USER_PLATFORM_ID = "IDUserPlatform"
 
 
 def manage_query_params() -> dict:
     queryParams = st.experimental_get_query_params()
 
-    if QueryParams.PLATFORM_USER_ID not in queryParams.keys():
-        queryParamsToAdd = {QueryParams.PLATFORM_USER_ID.value: [DEFAULT_PLATFORM_USER_ID]}
+    if QueryParams.USER_PLATFORM_ID not in queryParams.keys():
+        queryParamsToAdd = {QueryParams.USER_PLATFORM_ID.value: [DEFAULT_USER_PLATFORM_ID]}
         queryParams.update(queryParamsToAdd)
 
     st.experimental_set_query_params(**queryParams)

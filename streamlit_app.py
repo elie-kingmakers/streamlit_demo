@@ -9,7 +9,7 @@ import pandas as pd
 # from core.utils.filestore import get_filestore_file_url
 # from core.store.databricks_api_engine import DatabricksApiEngine
 from datamodel.customer_profile import CustomerProfile
-from datamodel.constants import DEFAULT_PLATFORM_USER_ID
+from datamodel.constants import DEFAULT_USER_PLATFORM_ID
 from store.customer_data_retriever import CustomerDataRetriever
 from utils.load_css_file import local_css_file
 from utils.query_params import QueryParams, manage_query_params
@@ -72,7 +72,7 @@ getProfileButton = form.form_submit_button(label="Get Profile")
 
 # losing = 330677 (413316)
 # winning = 900563 (1004623)
-if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
+if getProfileButton or (userPlatformId != DEFAULT_USER_PLATFORM_ID):
 
     # if userIdType == 'User ID':
     #     # dfCustomer = CustomerDataRetriever.load_customer_data(userId=userId)
@@ -92,7 +92,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
         st.error('User Not Found.')
         st.warning('''
             Possible Reasons:\n
-            * ID Type is wrong\n
+            * ID Type is wrong (Please use User Platform ID)\n
             * ID is wrong\n
             * User does not have settled coupons\n
             * User is brand new (registration less than 1 day old)
@@ -109,7 +109,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     col1, col2, col3 = st.columns(3)
 
     show_data(label="User ID", value=customerProfile.userId, inBold=True, column=col1)
-    show_data(label="Platform User ID", value=customerProfile.platformUserId, inBold=True, column=col2)
+    show_data(label="User Platform ID", value=customerProfile.userPlatformId, inBold=True, column=col2)
     insert_blank(column=col3)
 
     show_data(label="First Name", value=customerProfile.firstName, inBold=True, column=col1)
@@ -149,10 +149,12 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
     st.markdown("""---""")
 
+    st.subheader("Info")
+
     col1, col2, col3 = st.columns(3)
 
     col1.metric(label="Available Balance", value="{:.2f} €".format(customerProfile.availableBalanceTotal))
-    col2.metric(label="Total Number of Coupons", value=customerProfile.totalNumberOfCoupons)
+    col2.metric(label="Total Nb. of Coupons", value=customerProfile.totalNumberOfCoupons)
     col3.metric(
         label="Most Recent Coupon Date", value=get_date_string(dateKey=customerProfile.mostRecentCouponDateKey)
     )
@@ -174,6 +176,8 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
     st.markdown("""---""")
 
+    st.subheader("Coupons Stats")
+
     col1, col2, col3, col4, _ = st.columns([2, 1, 1, 1, 2])
 
     insert_blank(column=col1)
@@ -181,7 +185,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     col3.write("**Live**")
     col4.write("**Total**")
 
-    col1.write("**Total Number of Coupons**")
+    col1.write("**Total Nb. of Coupons**")
     show_data(value=customerProfile.totalNumberOfCouponsPrematch, inBold=True, column=col2)
     show_data(value=customerProfile.totalNumberOfCouponsLive, inBold=True, column=col3)
     show_data(value=customerProfile.totalNumberOfCoupons, inBold=True, column=col4)
@@ -278,9 +282,11 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
 
     # ***********************************************************************************************************************
-    # TOTAL CASHOUT STATS
+    # CASHOUT STATS
 
     st.markdown("""---""")
+
+    st.subheader("Cashout Stats")
 
     col1, col2, col3, col4, _ = st.columns([2, 1, 1, 1, 2])
 
@@ -289,7 +295,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     col3.write("**Live**")
     col4.write("**Total**")
 
-    col1.write("**Cashout Total Number of Coupons**")
+    col1.write("**Cashout Total Nb. of Coupons**")
     show_data(value=customerProfile.cashoutTotalNumberOfCouponsPrematch, inBold=True, column=col2)
     show_data(value=customerProfile.cashoutTotalNumberOfCouponsLive, inBold=True, column=col3)
     show_data(value=customerProfile.cashoutTotalNumberOfCoupons, inBold=True, column=col4)
@@ -324,6 +330,8 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
 
     st.markdown("""---""")
 
+    st.subheader("Singles Stats")
+
     col1, col2, col3, col4, col5 = st.columns([2, 1, 1, 2, 1])
 
     insert_blank(column=col1)
@@ -332,10 +340,10 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     insert_blank(column=col4)
     col5.write("**Total**")
 
-    col1.write("**Singles Total Number of Coupons**")
+    col1.write("**Singles Total Nb. of Coupons**")
     show_data(value=customerProfile.singlesTotalNumberOfCoupons, inBold=True, column=col2)
     insert_blank(column=col3)
-    col4.write("**Singles Pct. of Total Number of Coupons**")
+    col4.write("**Singles Pct. of Total Nb. of Coupons**")
     show_data(value=customerProfile.singlesPercentageOfTotalNumberOfCoupons, sign="%", inBold=True, column=col5)
 
     col1.write("**Singles Avg. Coupon Odds**")
@@ -363,7 +371,7 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     show_data(value=customerProfile.singlesPercentageOfTotalReturn, sign="%", inBold=True, column=col5)
 
     col1.write("**Singles Net Earnings**")
-    show_data(value=customerProfile.singlesNetEarnings, sign="€", inBold=True, negate=True, column=col2)
+    show_data(value=customerProfile.singlesNetEarnings, sign="€", negate=True, inBold=True, column=col2)
     insert_blank(column=col3)
     col4.write("**Singles Pct. of Net Earnings**")
     show_data(value=customerProfile.singlesPercentageOfNetEarnings, sign="%", inBold=True, column=col5)
@@ -394,6 +402,90 @@ if getProfileButton or (userPlatformId != DEFAULT_PLATFORM_USER_ID):
     # MULTIS STATS
 
     st.markdown("""---""")
+
+    st.subheader("Multis Stats")
+
+    col1, col2, col3, col4, col5 = st.columns([2, 1, 1, 2, 1])
+
+    insert_blank(column=col1)
+    col2.write("**Total**")
+    insert_blank(column=col3)
+    insert_blank(column=col4)
+    col5.write("**Total**")
+
+    col1.write("**Multis Total Nb. of Coupons**")
+    show_data(value=customerProfile.multisTotalNumberOfCoupons, inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Pct. of Total Nb. of Coupons**")
+    show_data(value=customerProfile.multisPercentageOfTotalNumberOfCoupons, sign="%", inBold=True, column=col5)
+
+    col1.write("**Multis Avg. Selection Odds**")
+    show_data(value=customerProfile.multisAverageSelectionOdds, inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Avg. Coupon Odds**")
+    show_data(value=customerProfile.multisAverageCouponOdds, inBold=True, column=col5)
+
+    col1.write("**Multis Avg. Selection Stake**")
+    show_data(value=customerProfile.multisAverageSelectionStake, sign="€", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Avg. Selection Return**")
+    show_data(value=customerProfile.multisAverageSelectionReturn, sign="€", inBold=True, column=col5)
+
+    col1.write("**Multis Total Nb. of Selections**")
+    show_data(value=customerProfile.multisTotalNumberOfSelections, inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Avg. Combi Length**")
+    show_data(value=customerProfile.multisAverageCouponNumberOfSelections, inBold=True, column=col5)
+
+    col1.write("**Multis Avg. Coupon Stake**")
+    show_data(value=customerProfile.multisAverageCouponStake, sign="€", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Avg. Coupon Return**")
+    show_data(value=customerProfile.multisAverageCouponReturn, sign="€", inBold=True, column=col5)
+
+    col1.write("**Multis Total Stake**")
+    show_data(value=customerProfile.multisTotalStake, sign="€", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Pct. of Total Stake**")
+    show_data(value=customerProfile.multisPercentageOfTotalStake, sign="%", inBold=True, column=col5)
+
+    col1.write("**Multis Total Return**")
+    show_data(value=customerProfile.multisTotalReturn, sign="€", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Pct. of Total Return**")
+    show_data(value=customerProfile.multisPercentageOfTotalReturn, sign="%", inBold=True, column=col5)
+
+    col1.write("**Multis Net Earnings**")
+    show_data(value=customerProfile.multisNetEarnings, sign="€", negate=True, inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Pct. of Net Earnings**")
+    show_data(value=customerProfile.multisPercentageOfNetEarnings, sign="%", inBold=True, column=col5)
+
+    col1.write("**Multis Return on Stake Pct.**")
+    show_data(value=customerProfile.multisReturnOnStakePercentage, sign="%", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Margin**")
+    show_data(value=customerProfile.multisMargin, sign="%", inBold=True, column=col5)
+
+    col1.write("**Multis Nb. of Winning Bets**")
+    show_data(value=customerProfile.multisTruePositives, inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Nb. of Losing Bets**")
+    show_data(value=customerProfile.multisFalsePositives, inBold=True, column=col5)
+
+    col1.write("**Multis Accuracy**")
+    show_data(value=customerProfile.multisAccuracy, sign="%", inBold=True, column=col2)
+    insert_blank(column=col3)
+    col4.write("**Multis Winning Status**")
+    show_data(value=get_winning_status_string(customerProfile.multisWinningStatus), inBold=True, column=col5)
+
+
+
+
+
+    # show_data(label='', value=customerProfile., inBold=True, column=col2)
+    # show_data(label='', value=customerProfile., inBold=True, column=col3)
+    # show_data(label='', value=customerProfile., inBold=True, column=col4)
 
 
 

@@ -10,7 +10,7 @@ class CustomerProfile(BaseModel):
     userId: int = 0
     clientIP: str = ""
 
-    platformUserId: int = 0
+    userPlatformId: int = 0
     userTypeId: int = 0
     userTypeName: str = ""
     userStatusId: int = 0
@@ -140,6 +140,29 @@ class CustomerProfile(BaseModel):
     singlesFalsePositives: int = 0
     singlesAccuracy: float = 0.0
 
+    multisAverageSelectionOdds: float = 0.0
+    multisAverageSelectionStake: float = 0.0
+    multisAverageSelectionReturn: float = 0.0
+    multisTruePositives: int = 0
+    multisFalsePositives: int = 0
+    multisTotalNumberOfCoupons: int = 0
+    multisPercentageOfTotalNumberOfCoupons: float = 0.0
+    multisTotalNumberOfSelections: int = 0
+    multisAverageCouponNumberOfSelections: float = 0.0
+    multisAverageCouponStake: float = 0.0
+    multisAverageCouponReturn: float = 0.0
+    multisTotalStake: float = 0.0
+    multisPercentageOfTotalStake: float = 0.0
+    multisTotalReturn: float = 0.0
+    multisPercentageOfTotalReturn: float = 0.0
+    multisAverageCouponOdds: float = 0.0
+    multisNetEarnings: float = 0.0
+    multisPercentageOfNetEarnings: float = 0.0
+    multisReturnOnStakePercentage: float = 0.0
+    multisMargin: float = 0.0
+    multisWinningStatus: int = 0
+    multisAccuracy: float = 0.0
+
     clusterAverageCouponStake: str = ""
     clusterAccuracy: str = ""
     clusterNumberOfCoupons: str = ""
@@ -163,7 +186,7 @@ class CustomerProfile(BaseModel):
         customerProfile.userId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_ID], "int")
         customerProfile.clientIP = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLIENT_IP], "str")
 
-        customerProfile.platformUserId = get_value(dfCustomer.iloc[0][Columns.CustomerData.PLATFORM_USER_ID], "int")
+        customerProfile.userPlatformId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_PLATFORM_ID], "int")
         customerProfile.userTypeId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_TYPE_ID], "int")
         customerProfile.userTypeName = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_TYPE_NAME], "str")
         customerProfile.userStatusId = get_value(dfCustomer.iloc[0][Columns.CustomerData.USER_STATUS_ID], "int")
@@ -292,6 +315,29 @@ class CustomerProfile(BaseModel):
         customerProfile.singlesTruePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_TRUE_POSITIVES], "int")
         customerProfile.singlesFalsePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_FALSE_POSITIVES], "int")
         customerProfile.singlesAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_ACCURACY], "float")
+
+        customerProfile.multisAverageSelectionOdds = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_AVERAGE_SELECTION_ODDS], "float")
+        customerProfile.multisAverageSelectionStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_AVERAGE_SELECTION_STAKE], "float")
+        customerProfile.multisAverageSelectionReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_AVERAGE_SELECTION_RETURN], "float")
+        customerProfile.multisTruePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_TRUE_POSITIVES], "int")
+        customerProfile.multisFalsePositives = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_FALSE_POSITIVES], "int")
+        customerProfile.multisTotalNumberOfCoupons = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_TOTAL_NUMBER_OF_COUPONS], "int")
+        customerProfile.multisPercentageOfTotalNumberOfCoupons = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_PERCENTAGE_OF_TOTAL_NUMBER_OF_COUPONS], "float")
+        customerProfile.multisTotalNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_TOTAL_NUMBER_OF_SELECTIONS], "int")
+        customerProfile.multisAverageCouponNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_AVERAGE_COUPON_NUMBER_OF_SELECTIONS], "float")
+        customerProfile.multisAverageCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_AVERAGE_COUPON_STAKE], "float")
+        customerProfile.multisAverageCouponReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_AVERAGE_COUPON_RETURN], "float")
+        customerProfile.multisTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_TOTAL_STAKE], "float")
+        customerProfile.multisPercentageOfTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_PERCENTAGE_OF_TOTAL_STAKE], "float")
+        customerProfile.multisTotalReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_TOTAL_RETURN], "float")
+        customerProfile.multisPercentageOfTotalReturn = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_PERCENTAGE_OF_TOTAL_RETURN], "float")
+        customerProfile.multisAverageCouponOdds = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_AVERAGE_COUPON_ODDS], "float")
+        customerProfile.multisNetEarnings = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_NET_EARNINGS], "float")
+        customerProfile.multisPercentageOfNetEarnings = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_PERCENTAGE_OF_NET_EARNINGS], "float")
+        customerProfile.multisReturnOnStakePercentage = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_RETURN_ON_STAKE_PERCENTAGE], "float")
+        customerProfile.multisMargin = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_MARGIN], "float")
+        customerProfile.multisWinningStatus = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_WINNING_STATUS], "int")
+        customerProfile.multisAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_ACCURACY], "float")
 
         customerProfile.clusterAverageCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_AVERAGE_COUPON_STAKE], "str")
         customerProfile.clusterAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_ACCURACY], "str")
