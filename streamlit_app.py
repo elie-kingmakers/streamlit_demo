@@ -153,7 +153,11 @@ if getProfileButton or (userPlatformId != DEFAULT_USER_PLATFORM_ID):
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric(label="Available Balance", value="{:.2f} €".format(customerProfile.availableBalanceTotal))
+    if customerProfile.availableBalanceTotal == "N/A":
+        col1.metric(label="Available Balance", value="N/A")
+    else:
+        col1.metric(label="Available Balance", value="{:.2f} €".format(customerProfile.availableBalanceTotal))
+
     col2.metric(label="Total Nb. of Coupons", value=customerProfile.totalNumberOfCoupons)
     col3.metric(
         label="Most Recent Coupon Date", value=get_date_string(dateKey=customerProfile.mostRecentCouponDateKey)
