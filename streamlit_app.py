@@ -29,9 +29,9 @@ local_css_file("style.css")
 
 # manage query parameters
 queryParams = manage_query_params()
-# userPlatformId = queryParams[QueryParams.PLATFORM_USER_ID][0]
+userPlatformId = queryParams[QueryParams.USER_PLATFORM_ID][0]
 
-userPlatformId = 0
+# userPlatformId = 0
 
 # layout changes
 remove_whitespace_top()
