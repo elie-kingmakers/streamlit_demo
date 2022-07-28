@@ -38,7 +38,7 @@ userPlatformId = queryParams[QueryParams.USER_PLATFORM_ID][0]
 
 # layout changes
 remove_whitespace_top()
-hide_menu_button()    # keep it for now to reset cache
+# hide_menu_button()    # keep it for now to reset cache
 resize_sidebar(width=210)
 
 
