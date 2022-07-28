@@ -1,4 +1,5 @@
 databricks-api
 pydantic
 aenum
+matplotlib
 click==8.0.4
