@@ -163,6 +163,27 @@ class CustomerProfile(BaseModel):
     multisWinningStatus: int = 0
     multisAccuracy: float = 0.0
 
+    sportsStatsNumberOfSelections: list = []
+    sportsStatsTotalStake: list = []
+    singlesSportsStatsNumberOfSelections: list = []
+    singlesSportsStatsTotalStake: list = []
+    multisSportsStatsNumberOfSelections: list = []
+    multisSportsStatsTotalStake: list = []
+
+    tournamentsStatsNumberOfSelections: list = []
+    tournamentsStatsTotalStake: list = []
+    singlesTournamentsStatsNumberOfSelections: list = []
+    singlesTournamentsStatsTotalStake: list = []
+    multisTournamentsStatsNumberOfSelections: list = []
+    multisTournamentsStatsTotalStake: list = []
+
+    marketsStatsNumberOfSelections: list = []
+    marketsStatsTotalStake: list = []
+    singlesMarketsStatsNumberOfSelections: list = []
+    singlesMarketsStatsTotalStake: list = []
+    multisMarketsStatsNumberOfSelections: list = []
+    multisMarketsStatsTotalStake: list = []
+
     clusterAverageCouponStake: str = ""
     clusterAccuracy: str = ""
     clusterNumberOfCoupons: str = ""
@@ -338,6 +359,27 @@ class CustomerProfile(BaseModel):
         customerProfile.multisMargin = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_MARGIN], "float")
         customerProfile.multisWinningStatus = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_WINNING_STATUS], "int")
         customerProfile.multisAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_ACCURACY], "float")
+
+        customerProfile.sportsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.SPORTS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.sportsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.SPORTS_STATS_TOTAL_STAKE], "list")
+        customerProfile.singlesSportsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_SPORTS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.singlesSportsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_SPORTS_STATS_TOTAL_STAKE], "list")
+        customerProfile.multisSportsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_SPORTS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.multisSportsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_SPORTS_STATS_TOTAL_STAKE], "list")
+
+        customerProfile.tournamentsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOURNAMENTS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.tournamentsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.TOURNAMENTS_STATS_TOTAL_STAKE], "list")
+        customerProfile.singlesTournamentsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_TOURNAMENTS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.singlesTournamentsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_TOURNAMENTS_STATS_TOTAL_STAKE], "list")
+        customerProfile.multisTournamentsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_TOURNAMENTS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.multisTournamentsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_TOURNAMENTS_STATS_TOTAL_STAKE], "list")
+
+        customerProfile.marketsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.MARKETS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.marketsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MARKETS_STATS_TOTAL_STAKE], "list")
+        customerProfile.singlesMarketsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_MARKETS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.singlesMarketsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.SINGLES_MARKETS_STATS_TOTAL_STAKE], "list")
+        customerProfile.multisMarketsStatsNumberOfSelections = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_MARKETS_STATS_NUMBER_OF_SELECTIONS], "list")
+        customerProfile.multisMarketsStatsTotalStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.MULTIS_MARKETS_STATS_TOTAL_STAKE], "list")
 
         customerProfile.clusterAverageCouponStake = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_AVERAGE_COUPON_STAKE], "str")
         customerProfile.clusterAccuracy = get_value(dfCustomer.iloc[0][Columns.CustomerData.CLUSTER_ACCURACY], "str")

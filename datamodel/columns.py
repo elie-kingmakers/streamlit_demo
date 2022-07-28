@@ -29,6 +29,10 @@ class Columns(Enum):
         COUPON_TYPE_ID = "IDCouponType"
         COUPON_STATUS_ID = "IDCouponStatus"
         SETTLEMENT_STATUS_ID = "IDSettlementStatus"
+        SPORT_ID = "IDSport"
+        EVENT_TYPE_ID = "IDEventType"
+        TOURNAMENT_NAME = "TournamentName"
+        MARKET_TYPE_ID = "IDMarketType"
 
         # added in bronze layer
         NUMBER_OF_RELEVANT_SELECTIONS = "NumberOfRelevantSelections"
@@ -210,6 +214,26 @@ class Columns(Enum):
         MULTIS_WINNING_STATUS = "MultisWinningStatus"
         MULTIS_ACCURACY = "MultisAccuracy"
 
+        SPORTS_STATS_NUMBER_OF_SELECTIONS = "SportsStatsNumberOfSelections"
+        SPORTS_STATS_TOTAL_STAKE = "SportsStatsTotalStake"
+        SINGLES_SPORTS_STATS_NUMBER_OF_SELECTIONS = "SinglesSportsStatsNumberOfSelections"
+        SINGLES_SPORTS_STATS_TOTAL_STAKE = "SinglesSportsStatsTotalStake"
+        MULTIS_SPORTS_STATS_NUMBER_OF_SELECTIONS = "MultisSportsStatsNumberOfSelections"
+        MULTIS_SPORTS_STATS_TOTAL_STAKE = "MultisSportsStatsTotalStake"
+
+        TOURNAMENTS_STATS_NUMBER_OF_SELECTIONS = "TournamentsStatsNumberOfSelections"
+        TOURNAMENTS_STATS_TOTAL_STAKE = "TournamentsStatsTotalStake"
+        SINGLES_TOURNAMENTS_STATS_NUMBER_OF_SELECTIONS = "SinglesTournamentsStatsNumberOfSelections"
+        SINGLES_TOURNAMENTS_STATS_TOTAL_STAKE = "SinglesTournamentsStatsTotalStake"
+        MULTIS_TOURNAMENTS_STATS_NUMBER_OF_SELECTIONS = "MultisTournamentsStatsNumberOfSelections"
+        MULTIS_TOURNAMENTS_STATS_TOTAL_STAKE = "MultisTournamentsStatsTotalStake"
+
+        MARKETS_STATS_NUMBER_OF_SELECTIONS = "MarketsStatsNumberOfSelections"
+        MARKETS_STATS_TOTAL_STAKE = "MarketsStatsTotalStake"
+        SINGLES_MARKETS_STATS_NUMBER_OF_SELECTIONS = "SinglesMarketsStatsNumberOfSelections"
+        SINGLES_MARKETS_STATS_TOTAL_STAKE = "SinglesMarketsStatsTotalStake"
+        MULTIS_MARKETS_STATS_NUMBER_OF_SELECTIONS = "MultisMarketsStatsNumberOfSelections"
+        MULTIS_MARKETS_STATS_TOTAL_STAKE = "MultisMarketsStatsTotalStake"
 
         CLUSTER_AVERAGE_COUPON_STAKE = "ClusterAverageCouponStake"
         CLUSTER_ACCURACY = "ClusterAccuracy"

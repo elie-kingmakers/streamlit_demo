@@ -36,3 +36,27 @@ def hide_menu_button():
         """,
         unsafe_allow_html=True,
     )
+
+
+def resize_sidebar(width: int):
+    st.markdown(
+        f"""
+        <style>
+        [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {{
+            width: {width}px;
+        }}
+        [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {{
+            width: {width}px;
+            margin-left: -{width}px;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+
+
+
+
+
