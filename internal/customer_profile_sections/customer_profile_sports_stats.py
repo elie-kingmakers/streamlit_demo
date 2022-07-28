@@ -31,9 +31,9 @@ from utils.format_data import get_sports_stats_dataframe
 def show_customer_profile_sports_stats(customerProfile: CustomerProfile):
     st.subheader("Sports Stats")
 
+    # NUMBER OF SELECTIONS
     col1, col2, col3 = st.columns(3)
 
-    # NUMBER OF SELECTIONS
     col1.markdown("<div style='text-align: center;'>Nb. of Selections</div>", unsafe_allow_html=True)
     if customerProfile.sportsStatsNumberOfSelections:
         pdSportsStatsNumberOfSelections = get_sports_stats_dataframe(
@@ -92,6 +92,8 @@ def show_customer_profile_sports_stats(customerProfile: CustomerProfile):
         col3.pyplot(fig=get_empty_figure())
 
     # TOTAL STAKE
+    col1, col2, col3 = st.columns(3)
+
     col1.markdown("<div style='text-align: center;'>Total Stake</div>", unsafe_allow_html=True)
     if customerProfile.sportsStatsTotalStake:
         pdSportsStatsTotalStake = get_sports_stats_dataframe(

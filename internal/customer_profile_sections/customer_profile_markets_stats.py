@@ -9,9 +9,9 @@ from utils.format_data import get_markets_stats_dataframe
 def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
     st.subheader("Markets Stats")
 
+    # NUMBER OF SELECTIONS
     col1, col2, col3 = st.columns(3)
 
-    # NUMBER OF SELECTIONS
     col1.markdown("<div style='text-align: center;'>Nb. of Selections</div>", unsafe_allow_html=True)
     if customerProfile.marketsStatsNumberOfSelections:
         pdMarketsStatsNumberOfSelections = get_markets_stats_dataframe(
@@ -67,6 +67,8 @@ def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
         col3.pyplot(fig=get_empty_figure())
 
     # TOTAL STAKE
+    col1, col2, col3 = st.columns(3)
+
     col1.markdown("<div style='text-align: center;'>Total Stake</div>", unsafe_allow_html=True)
     if customerProfile.marketsStatsTotalStake:
         pdMarketsStatsTotalStake = get_markets_stats_dataframe(

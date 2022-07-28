@@ -9,9 +9,9 @@ from utils.format_data import get_tournaments_stats_dataframe
 def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
     st.subheader("Tournaments Stats")
 
+    # NUMBER OF SELECTIONS
     col1, col2, col3 = st.columns(3)
 
-    # NUMBER OF SELECTIONS
     col1.markdown("<div style='text-align: center;'>Nb. of Selections</div>", unsafe_allow_html=True)
     if customerProfile.tournamentsStatsNumberOfSelections:
         pdTournamentsStatsNumberOfSelections = get_tournaments_stats_dataframe(
@@ -70,6 +70,8 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
         col3.pyplot(fig=get_empty_figure())
 
     # TOTAL STAKE
+    col1, col2, col3 = st.columns(3)
+
     col1.markdown("<div style='text-align: center;'>Total Stake</div>", unsafe_allow_html=True)
     if customerProfile.tournamentsStatsTotalStake:
         pdTournamentsStatsTotalStake = get_tournaments_stats_dataframe(
