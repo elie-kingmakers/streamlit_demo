@@ -1,4 +1,5 @@
 import streamlit as st
+import matplotlib.pyplot as plt
 
 from core.utils.matplotlib_helpers import get_empty_figure
 from datamodel.customer_profile import CustomerProfile
@@ -128,6 +129,8 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
         )
     else:
         col3.pyplot(fig=get_empty_figure())
+
+    plt.close('all')
 
 
 
