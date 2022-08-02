@@ -50,7 +50,7 @@ st.title("Customer Profile")
 # ***********************************************************************************************************************
 # ***********************************************************************************************************************
 
-@st.cache
+@st.cache(ttl=0.5*3600) # keep cache for 0.5 hours only
 def load_customer_profile():
     dfCustomerProfile = CustomerDataRetriever.load_customer_data(userPlatformId=userPlatformId)
     return dfCustomerProfile

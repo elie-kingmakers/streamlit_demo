@@ -19,18 +19,20 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
             tournamentsStats=customerProfile.tournamentsStatsNumberOfSelections,
             statType="int"
         )
-        col1.pyplot(
-            fig=get_tournaments_stats_histogram(
-                x=pdTournamentsStatsNumberOfSelections["Tournament"],
-                y=pdTournamentsStatsNumberOfSelections["Stat"],
-                xLabelSize=8,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0,
-                wrapLabels=True
-            )
+        fig = get_tournaments_stats_histogram(
+            x=pdTournamentsStatsNumberOfSelections["Tournament"],
+            y=pdTournamentsStatsNumberOfSelections["Stat"],
+            xLabelSize=8,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0,
+            wrapLabels=True
         )
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col1.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col2.markdown("<div style='text-align: center;'>Nb. of Selections SINGLES</div>", unsafe_allow_html=True)
     if customerProfile.singlesTournamentsStatsNumberOfSelections:
@@ -38,18 +40,20 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
             tournamentsStats=customerProfile.singlesTournamentsStatsNumberOfSelections,
             statType="int"
         )
-        col2.pyplot(
-            fig=get_tournaments_stats_histogram(
-                x=pdSinglesTournamentsStatsNumberOfSelections["Tournament"],
-                y=pdSinglesTournamentsStatsNumberOfSelections["Stat"],
-                xLabelSize=8,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0,
-                wrapLabels=True
-            )
+        fig = get_tournaments_stats_histogram(
+            x=pdSinglesTournamentsStatsNumberOfSelections["Tournament"],
+            y=pdSinglesTournamentsStatsNumberOfSelections["Stat"],
+            xLabelSize=8,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0,
+            wrapLabels=True
         )
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col2.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col3.markdown("<div style='text-align: center;'>Nb. of Selections MULTIS</div>", unsafe_allow_html=True)
     if customerProfile.multisTournamentsStatsNumberOfSelections:
@@ -57,18 +61,20 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
             tournamentsStats=customerProfile.multisTournamentsStatsNumberOfSelections,
             statType="int"
         )
-        col3.pyplot(
-            fig=get_tournaments_stats_histogram(
-                x=pdMultisTournamentsStatsNumberOfSelections["Tournament"],
-                y=pdMultisTournamentsStatsNumberOfSelections["Stat"],
-                xLabelSize=8,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0,
-                wrapLabels=True
-            )
+        fig = get_tournaments_stats_histogram(
+            x=pdMultisTournamentsStatsNumberOfSelections["Tournament"],
+            y=pdMultisTournamentsStatsNumberOfSelections["Stat"],
+            xLabelSize=8,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0,
+            wrapLabels=True
         )
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col3.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     # TOTAL STAKE
     col1, col2, col3 = st.columns(3)
@@ -79,18 +85,20 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
             tournamentsStats=customerProfile.tournamentsStatsTotalStake,
             statType="float"
         )
-        col1.pyplot(
-            get_tournaments_stats_histogram(
-                x=pdTournamentsStatsTotalStake["Tournament"],
-                y=pdTournamentsStatsTotalStake["Stat"],
-                xLabelSize=8,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0,
-                wrapLabels=True
-            )
+        fig = get_tournaments_stats_histogram(
+            x=pdTournamentsStatsTotalStake["Tournament"],
+            y=pdTournamentsStatsTotalStake["Stat"],
+            xLabelSize=8,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0,
+            wrapLabels=True
         )
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col1.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col2.markdown("<div style='text-align: center;'>Total Stake SINGLES</div>", unsafe_allow_html=True)
     if customerProfile.singlesTournamentsStatsTotalStake:
@@ -98,18 +106,20 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
             tournamentsStats=customerProfile.singlesTournamentsStatsTotalStake,
             statType="float"
         )
-        col2.pyplot(
-            get_tournaments_stats_histogram(
-                x=pdSinglesTournamentsStatsTotalStake["Tournament"],
-                y=pdSinglesTournamentsStatsTotalStake["Stat"],
-                xLabelSize=8,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0,
-                wrapLabels=True
-            )
+        fig = get_tournaments_stats_histogram(
+            x=pdSinglesTournamentsStatsTotalStake["Tournament"],
+            y=pdSinglesTournamentsStatsTotalStake["Stat"],
+            xLabelSize=8,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0,
+            wrapLabels=True
         )
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col2.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col3.markdown("<div style='text-align: center;'>Total Stake MULTIS</div>", unsafe_allow_html=True)
     if customerProfile.multisTournamentsStatsTotalStake:
@@ -117,18 +127,20 @@ def show_customer_profile_tournaments_stats(customerProfile: CustomerProfile):
             tournamentsStats=customerProfile.multisTournamentsStatsTotalStake,
             statType="float"
         )
-        col3.pyplot(
-            get_tournaments_stats_histogram(
-                x=pdMultisTournamentsStatsTotalStake["Tournament"],
-                y=pdMultisTournamentsStatsTotalStake["Stat"],
-                xLabelSize=8,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0,
-                wrapLabels=True
-            )
+        fig = get_tournaments_stats_histogram(
+            x=pdMultisTournamentsStatsTotalStake["Tournament"],
+            y=pdMultisTournamentsStatsTotalStake["Stat"],
+            xLabelSize=8,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0,
+            wrapLabels=True
         )
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col3.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     plt.close('all')
 

@@ -19,17 +19,19 @@ def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
             marketsStats=customerProfile.marketsStatsNumberOfSelections,
             statType="int"
         )
-        col1.pyplot(
-            fig=get_markets_stats_histogram(
-                x=pdMarketsStatsNumberOfSelections["Market"],
-                y=pdMarketsStatsNumberOfSelections["Stat"],
-                xLabelSize=10,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0
-            )
+        fig = get_markets_stats_histogram(
+            x=pdMarketsStatsNumberOfSelections["Market"],
+            y=pdMarketsStatsNumberOfSelections["Stat"],
+            xLabelSize=10,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0
         )
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col1.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col2.markdown("<div style='text-align: center;'>Nb. of Selections SINGLES</div>", unsafe_allow_html=True)
     if customerProfile.singlesMarketsStatsNumberOfSelections:
@@ -37,17 +39,19 @@ def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
             marketsStats=customerProfile.singlesMarketsStatsNumberOfSelections,
             statType="int"
         )
-        col2.pyplot(
-            fig=get_markets_stats_histogram(
-                x=pdSinglesMarketsStatsNumberOfSelections["Market"],
-                y=pdSinglesMarketsStatsNumberOfSelections["Stat"],
-                xLabelSize=10,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0
-            )
+        fig = get_markets_stats_histogram(
+            x=pdSinglesMarketsStatsNumberOfSelections["Market"],
+            y=pdSinglesMarketsStatsNumberOfSelections["Stat"],
+            xLabelSize=10,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0
         )
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col2.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col3.markdown("<div style='text-align: center;'>Nb. of Selections MULTIS</div>", unsafe_allow_html=True)
     if customerProfile.multisMarketsStatsNumberOfSelections:
@@ -55,17 +59,19 @@ def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
             marketsStats=customerProfile.multisMarketsStatsNumberOfSelections,
             statType="int"
         )
-        col3.pyplot(
-            fig=get_markets_stats_histogram(
-                x=pdMultisMarketsStatsNumberOfSelections["Market"],
-                y=pdMultisMarketsStatsNumberOfSelections["Stat"],
-                xLabelSize=10,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0
-            )
+        fig = get_markets_stats_histogram(
+            x=pdMultisMarketsStatsNumberOfSelections["Market"],
+            y=pdMultisMarketsStatsNumberOfSelections["Stat"],
+            xLabelSize=10,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0
         )
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col3.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     # TOTAL STAKE
     col1, col2, col3 = st.columns(3)
@@ -76,17 +82,19 @@ def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
             marketsStats=customerProfile.marketsStatsTotalStake,
             statType="float"
         )
-        col1.pyplot(
-            get_markets_stats_histogram(
-                x=pdMarketsStatsTotalStake["Market"],
-                y=pdMarketsStatsTotalStake["Stat"],
-                xLabelSize=10,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0
-            )
+        fig = get_markets_stats_histogram(
+            x=pdMarketsStatsTotalStake["Market"],
+            y=pdMarketsStatsTotalStake["Stat"],
+            xLabelSize=10,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0
         )
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col1.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col1.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col2.markdown("<div style='text-align: center;'>Total Stake SINGLES</div>", unsafe_allow_html=True)
     if customerProfile.singlesMarketsStatsTotalStake:
@@ -94,17 +102,19 @@ def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
             marketsStats=customerProfile.singlesMarketsStatsTotalStake,
             statType="float"
         )
-        col2.pyplot(
-            get_markets_stats_histogram(
-                x=pdSinglesMarketsStatsTotalStake["Market"],
-                y=pdSinglesMarketsStatsTotalStake["Stat"],
-                xLabelSize=10,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0
-            )
+        fig = get_markets_stats_histogram(
+            x=pdSinglesMarketsStatsTotalStake["Market"],
+            y=pdSinglesMarketsStatsTotalStake["Stat"],
+            xLabelSize=10,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0
         )
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col2.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col2.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     col3.markdown("<div style='text-align: center;'>Total Stake MULTIS</div>", unsafe_allow_html=True)
     if customerProfile.multisMarketsStatsTotalStake:
@@ -112,16 +122,18 @@ def show_customer_profile_markets_stats(customerProfile: CustomerProfile):
             marketsStats=customerProfile.multisMarketsStatsTotalStake,
             statType="float"
         )
-        col3.pyplot(
-            get_markets_stats_histogram(
-                x=pdMultisMarketsStatsTotalStake["Market"],
-                y=pdMultisMarketsStatsTotalStake["Stat"],
-                xLabelSize=10,
-                barsAnnotations=True,
-                barsAnnotationsHeightInc=0.0
-            )
+        fig = get_markets_stats_histogram(
+            x=pdMultisMarketsStatsTotalStake["Market"],
+            y=pdMultisMarketsStatsTotalStake["Stat"],
+            xLabelSize=10,
+            barsAnnotations=True,
+            barsAnnotationsHeightInc=0.0
         )
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
     else:
-        col3.pyplot(fig=get_empty_figure())
+        fig = get_empty_figure()
+        col3.pyplot(fig=fig)
+        plt.close(fig=fig)
 
     plt.close('all')
